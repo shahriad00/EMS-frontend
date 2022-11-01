@@ -1,10 +1,11 @@
 import React from 'react';
-import AppLayout from './Layout/Layout';
+import Login from './Pages/Login';
 
 const App = () => {
   return (
     <>
-      <AppLayout/>
+    <Login/>
+      {/* <AppLayout/> */}
     </>
   );
 };
