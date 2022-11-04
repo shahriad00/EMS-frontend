@@ -1,9 +1,6 @@
 import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined
+  AlignRightOutlined, EyeOutlined, FileOutlined, FileSearchOutlined, PieChartOutlined,
+  TeamOutlined, UserAddOutlined, UserOutlined, UserSwitchOutlined
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import React, { useState } from 'react';
@@ -18,14 +15,14 @@ import React, { useState } from 'react';
   }
   const items = [
     getItem('Dashboard', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('Employee', 'sub1', <UserOutlined />, [
-      getItem('All employee', '3'),
-      getItem('Add employee', '4'),
-      getItem('Alex', '5'),
+    getItem('Employees', 'sub1', <UserSwitchOutlined />, [
+      getItem('View Employees', '3', <EyeOutlined />),
+      getItem('Add Employees', '4', <UserAddOutlined />),
     ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem('Leave Applications', '5', <FileOutlined />),
+    getItem('View Attendance', '6', <AlignRightOutlined />),
+    getItem('Mark Attendance', '7', <FileSearchOutlined />),
+    getItem('View Profile', '8', <UserOutlined />),
   ];
   const AppLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
