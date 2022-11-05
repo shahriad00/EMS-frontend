@@ -1,6 +1,5 @@
 import {
-  AlignRightOutlined, EyeOutlined, FileOutlined, FileSearchOutlined, LogoutOutlined, PieChartOutlined,
-  TeamOutlined, UserAddOutlined, UserOutlined
+  AlignRightOutlined, EyeOutlined, FileOutlined, FileSearchOutlined, LogoutOutlined, PieChartOutlined, UserAddOutlined, UserOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
@@ -46,7 +45,7 @@ import Dashboard from '../Pages/Dashboard/Dashboard';
       >
         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
           <div className="logo flex justify-center" >
-          <TeamOutlined />
+          
           </div>
           <Menu 
               onClick={({key}) => {

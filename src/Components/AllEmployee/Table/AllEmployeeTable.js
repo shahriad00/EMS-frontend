@@ -3,7 +3,7 @@ import {
     EditOutlined,
     EyeOutlined,
     PlusOutlined,
-    ProjectOutlined
+    ProjectOutlined,
 } from "@ant-design/icons";
 import React from "react";
 
@@ -50,55 +50,72 @@ const AllEmployeeTable = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b">
+                                    <tr class="bg-slate-100 border-b">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            1
+                                            Hassan Qureshi
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            Mark
+                                            hassanq@outlook.com
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            Otto
+                                            IT consulting
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            @mdo
+                                            software Engineer
                                         </td>
                                         <td class="flex justify-center w-100 text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <div className="flex flex-1 gap-2 justify-center w-100">
-                                                <span title='View Details' className="p-2 shadow rounded-md hover:shadow-md hover:cursor-pointer">
-                                                    <EyeOutlined style={{
-                                                        fontSize: "18px",
-                                                    }}/>
+                                                <span
+                                                    title="View Details"
+                                                    className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
+                                                >
+                                                    <EyeOutlined
+                                                        style={{
+                                                            fontSize: "18px",
+                                                        }}
+                                                    />
                                                 </span>
-                                                <span title='Edit Employee Details' className="p-2 shadow rounded-md hover:shadow-md hover:cursor-pointer">
+                                                <span
+                                                    title="Edit Employee Details"
+                                                    className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
+                                                >
                                                     <EditOutlined
-                                                    style={{
-                                                        fontSize: "18px",
-                                                    }}
-                                                />
+                                                        style={{
+                                                            fontSize: "18px",
+                                                        }}
+                                                    />
                                                 </span>
-                                                <span title='Delete Employee' className="p-2 shadow rounded-md hover:shadow-md hover:cursor-pointer">
+                                                <span
+                                                    title="Delete Employee"
+                                                    className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
+                                                >
                                                     <DeleteOutlined
-                                                    style={{
-                                                        color: "red",
-                                                        fontSize: "18px",
-                                                    }}
-                                                />
+                                                        style={{
+                                                            color: "red",
+                                                            fontSize: "18px",
+                                                        }}
+                                                    />
                                                 </span>
-                                                <span title='Add Project' className="p-2 shadow rounded-md hover:shadow-md hover:cursor-pointer">
+                                                <span
+                                                    title="Add Project"
+                                                    className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
+                                                >
                                                     <PlusOutlined
-                                                    style={{
-                                                        color: "darkBlue",
-                                                        fontSize: "18px",
-                                                    }}
-                                                />
+                                                        style={{
+                                                            color: "darkBlue",
+                                                            fontSize: "18px",
+                                                        }}
+                                                    />
                                                 </span>
-                                                <span title='View project details' className="p-2 shadow rounded-md hover:shadow-md hover:cursor-pointer">
+                                                <span
+                                                    title="View project details"
+                                                    className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
+                                                >
                                                     <ProjectOutlined
-                                                    style={{
-                                                        fontSize: "18px",
-                                                    }}
-                                                />
+                                                        style={{
+                                                            fontSize: "18px",
+                                                        }}
+                                                    />
                                                 </span>
                                             </div>
                                         </td>
