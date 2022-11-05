@@ -1,8 +1,8 @@
 import React from "react";
+import AllEmployeeTable from "../../Components/AllEmployee/Table/AllEmployeeTable";
 
 const AllEmployees = () => {
     return (
-        <>
             <div className="m-4 p-4 bg-white rounded">
                 <div>
                     <h1 className="text-2xl bold font-semibold">
@@ -10,10 +10,10 @@ const AllEmployees = () => {
                     </h1>
                 </div>
                 <div className="flex align-center space-between py-4">
-                    <div className="flex search-bar">
+                    <div className="flex flex-1 search-bar">
                         <div className="flex justify-center">
                             <div className="xl:w-96">
-                                <div className="input-group relative flex items-stretch w-full mb-4">
+                                <div className="input-group relative flex items-stretch w-full mb-2">
                                     <input
                                         type="search"
                                         className="form-control w-full relative px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-l-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -48,12 +48,14 @@ const AllEmployees = () => {
                     </div>
                     <div>
                         <button className="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">
-                            Add Employee
+                            + Add Employee
                         </button>
                     </div>
                 </div>
+                <AllEmployeeTable/>
+                
             </div>
-        </>
+
     );
 };
 
