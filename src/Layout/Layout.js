@@ -1,5 +1,5 @@
 import {
-  AlignRightOutlined, EyeOutlined, FileOutlined, FileSearchOutlined, PieChartOutlined,
+  AlignRightOutlined, EyeOutlined, FileOutlined, FileSearchOutlined, LogoutOutlined, PieChartOutlined,
   TeamOutlined, UserAddOutlined, UserOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
@@ -29,7 +29,7 @@ import Dashboard from '../Pages/Dashboard/Dashboard';
     getItem('View Attendance', '/view-attendance', <AlignRightOutlined />),
     getItem('Mark Attendance', '/mark-attendance', <FileSearchOutlined />),
     getItem('View Profile', '/profile', <UserOutlined />),
-    getItem('Logout', '/logout', <UserOutlined />),
+    getItem('Logout', '/logout', <LogoutOutlined />),
   ];
 
 
