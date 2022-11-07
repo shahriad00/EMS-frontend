@@ -3,11 +3,15 @@ import {
     EditOutlined,
     EyeOutlined,
     PlusOutlined,
-    ProjectOutlined,
+    ProjectOutlined
 } from "@ant-design/icons";
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 const AllEmployeeTable = () => {
+
+    const navigate = useNavigate();
+    
     return (
         <>
             <div class="flex flex-col">
@@ -98,6 +102,7 @@ const AllEmployeeTable = () => {
                                                 </span>
                                                 <span
                                                     title="Add Project"
+                                                    onClick={()=> navigate('/add-project')}
                                                     className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
                                                 >
                                                     <PlusOutlined
@@ -109,6 +114,7 @@ const AllEmployeeTable = () => {
                                                 </span>
                                                 <span
                                                     title="View project details"
+                                                    onClick={()=> navigate('/all-projects')}
                                                     className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
                                                 >
                                                     <ProjectOutlined
