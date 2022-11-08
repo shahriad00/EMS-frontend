@@ -17,8 +17,7 @@ import AllEmployees from "../Pages/Employee/AllEmployees/AllEmployees";
 import AddProject from "../Pages/Project/AddProject/AddProject";
 import ViewAllProjects from "../Pages/Project/ViewAllProjects/ViewAllProjects";
 import ViewSingleProject from "../Pages/Project/ViewSingleProject/ViewSingleProject";
-import UpdateProject from "./../Pages/Project/UpdateProject/UpdateProject";
-import UpdateEmployee from "./../Pages/Project/UpdateProject/UpdateProject";
+import { default as UpdateEmployee, default as UpdateProject } from "./../Pages/Project/UpdateProject/UpdateProject";
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -78,10 +77,13 @@ const AppLayout = () => {
             </Sider>
             <Layout className="site-layout">
                 <Header
-                    className="site-layout-background"
+                    className="site-layout-background shadow"
                     style={{
                         padding: "0 20px",
                         background: "white",
+                        position:'sticky',
+                        top: '0',
+                        zIndex: '999'
                     }}
                 >
                     <p style={{ fontWeight: "bold" }}>header</p>
