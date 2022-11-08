@@ -15,6 +15,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import AddEmployee from "../Pages/Employee/AddEmployee/AddEmployee";
 import AllEmployees from "../Pages/Employee/AllEmployees/AllEmployees";
 import ViewEmployee from "../Pages/Employee/ViewEmployee/ViewEmployee";
+import LeaveApplication from "../Pages/LeaveApplication/LeaveApplication";
+import LeaveApplicationDetails from "../Pages/LeaveApplication/LeaveApplicationDetails";
 import Profile from "../Pages/Profile/Profile";
 import AddProject from "../Pages/Project/AddProject/AddProject";
 import ViewAllProjects from "../Pages/Project/ViewAllProjects/ViewAllProjects";
@@ -123,6 +125,14 @@ const AppLayout = () => {
                         <Route
                             path="/update-project"
                             element={<UpdateProject />}
+                        />
+                        <Route
+                            path="/leave-applications"
+                            element={<LeaveApplication />}
+                        />
+                        <Route
+                            path="/leave-application-details"
+                            element={<LeaveApplicationDetails />}
                         />
                         <Route
                             path="/profile"
