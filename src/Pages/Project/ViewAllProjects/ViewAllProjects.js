@@ -1,12 +1,12 @@
 import React from "react";
-import AllEmployeeTable from "../../Components/AllEmployee/Table/AllEmployeeTable";
+import AllProjectsTable from "../../../Components/AllProjects/Table/AllProjectsTable";
 
-const AllEmployees = () => {
+const ViewAllProjects = () => {
     return (
             <div className="m-4 p-4 bg-white rounded">
                 <div>
                     <h1 className="text-2xl bold font-semibold">
-                        All Employees
+                        All projects
                     </h1>
                 </div>
                 <div className="flex align-center space-between py-4">
@@ -46,17 +46,17 @@ const AllEmployees = () => {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <button className="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">
-                            + Add Employee
+                            + Add project
                         </button>
-                    </div>
+                    </div> */}
                 </div>
-                <AllEmployeeTable/>
+                <AllProjectsTable/>
                 
             </div>
 
     );
 };
 
-export default AllEmployees;
+export default ViewAllProjects;

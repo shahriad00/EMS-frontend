@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import DEPARTMENT from "../../Assets/data/department";
-import DESIGNATION from "../../Assets/data/designation";
+import DEPARTMENT from "../../../Assets/data/department";
+import DESIGNATION from "../../../Assets/data/designation";
 
-const AddEmployee = () => {
+const UpdateEmployee = () => {
     const [depertmentID, setDepertmentID] = useState("");
 
     const handleDesegnation = (e) => {
@@ -16,17 +16,17 @@ const AddEmployee = () => {
     return (
         <div className="m-4 p-4 bg-white rounded">
             <div>
-                <h1 className="text-2xl bold font-semibold">Add Employee:</h1>
+                <h1 className="text-2xl bold font-semibold">Update Employee:</h1>
             </div>
-            <div class="flex items-center p-12">
-                <div class="w-full max-w-[700px]">
+            <div className="flex items-center p-12">
+                <div className="w-full max-w-[700px]">
                     <form action="https://formbold.com/s/FORM_ID" method="POST">
                         {/*----- full name --------*/}
-                        <div class="w-full sm:w-1/2">
-                            <div class="mb-5">
+                        <div className="w-full sm:w-1/2">
+                            <div className="mb-5">
                                 <label
                                     for="fName"
-                                    class="mb-3 block text-base text-sm text-[#07074D]"
+                                    className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Full Name:
                                 </label>
@@ -35,17 +35,17 @@ const AddEmployee = () => {
                                     name="Name"
                                     id="Name"
                                     placeholder="Ex: Jimmy Anderson"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                 />
                             </div>
                         </div>
 
                         {/*----- email --------*/}
-                        <div class="w-full sm:w-1/2">
-                            <div class="mb-5">
+                        <div className="w-full sm:w-1/2">
+                            <div className="mb-5">
                                 <label
                                     for="email"
-                                    class="mb-3 block text-base text-sm text-[#07074D]"
+                                    className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Email address:
                                 </label>
@@ -54,17 +54,17 @@ const AddEmployee = () => {
                                     name="email"
                                     id="email"
                                     placeholder="example@email.com"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                 />
                             </div>
                         </div>
 
                         {/*----- date of birth --------*/}
-                        <div class="mb-5 w-full sm:w-1/2">
-                            <div class="mb-5">
+                        <div className="mb-5 w-full sm:w-1/2">
+                            <div className="mb-5">
                                 <label
                                     for="date-of-birth"
-                                    class="mb-3 block text-base text-sm text-[#07074D]"
+                                    className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Date of birth:
                                 </label>
@@ -72,18 +72,18 @@ const AddEmployee = () => {
                                     type="date"
                                     name="date-of-birth"
                                     id="date-of-birth"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                 />
                             </div>
                         </div>
 
                         {/*----- Contact Number --------*/}
 
-                        <div class="w-full sm:w-1/2">
-                            <div class="mb-5">
+                        <div className="w-full sm:w-1/2">
+                            <div className="mb-5">
                                 <label
                                     for="contact-number"
-                                    class="mb-3 block text-base text-sm text-[#07074D]"
+                                    className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Contact number:
                                 </label>
@@ -92,7 +92,7 @@ const AddEmployee = () => {
                                     name="contact-number"
                                     id="contact-number"
                                     placeholder="Ex: 01***********"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                 />
                             </div>
                         </div>
@@ -101,13 +101,13 @@ const AddEmployee = () => {
                         <div className="mb-5">
                             <label
                                 for="department"
-                                class="mb-3 block text-base text-sm text-[#07074D]"
+                                className="mb-3 block text-base text-sm text-[#07074D]"
                             >
                                 Department:
                             </label>
                             <select
                                 id="department"
-                                class="w-full sm:w-1/2 bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-800 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400"
+                                className="w-full sm:w-1/2 bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-800 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400"
                                 onChange={(e) => handleDesegnation(e)}
                             >
                                 {DEPARTMENT.map(({ name, id }) => (
@@ -122,13 +122,13 @@ const AddEmployee = () => {
                         <div className="mb-5">
                             <label
                                 for="designation"
-                                class="mb-3 block text-base text-sm text-[#07074D]"
+                                className="mb-3 block text-base text-sm text-[#07074D]"
                             >
                                 Designation:
                             </label>
                             <select
                                 id="designation"
-                                class="w-full sm:w-1/2 bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-800 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400"
+                                className="w-full sm:w-1/2 bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-800 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400"
                             >
                                 {DESIGNATION.map(
                                     ({ name, DEPARTMENT_id }, key) => {
@@ -150,11 +150,11 @@ const AddEmployee = () => {
 
                         {/*----- salary --------*/}
 
-                        <div class="w-full sm:w-1/2">
-                            <div class="mb-5">
+                        <div className="w-full sm:w-1/2">
+                            <div className="mb-5">
                                 <label
                                     for="salary"
-                                    class="mb-3 block text-base text-sm text-[#07074D]"
+                                    className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Salary:
                                 </label>
@@ -163,18 +163,18 @@ const AddEmployee = () => {
                                     name="salary"
                                     id="salary"
                                     placeholder="Ex: 25000"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                 />
                             </div>
                         </div>
 
                         {/*----- Address --------*/}
 
-                        <div class="w-full sm:w-1/2">
-                            <div class="mb-5">
+                        <div className="w-full sm:w-1/2">
+                            <div className="mb-5">
                                 <label
                                     for="salary"
-                                    class="mb-3 block text-base text-sm text-[#07074D]"
+                                    className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Address:
                                 </label>
@@ -183,15 +183,15 @@ const AddEmployee = () => {
                                     name="salary"
                                     id="salary"
                                     placeholder="Ex: 34/A Uddipon, Mira-bazar, sylhet."
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                 />
                             </div>
                         </div>
 
                         {/*----------- Submit Button --------------*/}
                         <div>
-                            <button class="hover:shadow-form rounded-md bg-[#6A64F1] py-2 px-8 text-center text-base font-semibold text-white outline-none">
-                                Submit
+                            <button className="hover:shadow-form rounded-md bg-[#6A64F1] py-2 px-8 text-center text-base font-semibold text-white outline-none">
+                                Update
                             </button>
                         </div>
                     </form>
@@ -201,4 +201,4 @@ const AddEmployee = () => {
     );
 };
 
-export default AddEmployee;
+export default UpdateEmployee;

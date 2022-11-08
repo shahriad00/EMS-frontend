@@ -1,21 +1,24 @@
 import {
-  AlignRightOutlined,
-  EyeOutlined,
-  FileOutlined,
-  FileSearchOutlined,
-  LogoutOutlined,
-  PieChartOutlined,
-  UserAddOutlined,
-  UserOutlined
+    AlignRightOutlined,
+    EyeOutlined,
+    FileOutlined,
+    FileSearchOutlined,
+    LogoutOutlined,
+    PieChartOutlined,
+    UserAddOutlined,
+    UserOutlined
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import AddEmployee from "../Pages/AddEmployee/AddEmployee";
-import AddProject from "../Pages/AddProject/AddProject";
-import AllEmployees from "../Pages/AllEmployees/AllEmployees";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import ViewProject from "../Pages/ViewProjects/ViewProject";
+import AddEmployee from "../Pages/Employee/AddEmployee/AddEmployee";
+import AllEmployees from "../Pages/Employee/AllEmployees/AllEmployees";
+import AddProject from "../Pages/Project/AddProject/AddProject";
+import ViewAllProjects from "../Pages/Project/ViewAllProjects/ViewAllProjects";
+import ViewSingleProject from "../Pages/Project/ViewSingleProject/ViewSingleProject";
+import UpdateProject from "./../Pages/Project/UpdateProject/UpdateProject";
+import UpdateEmployee from "./../Pages/Project/UpdateProject/UpdateProject";
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -52,7 +55,7 @@ const AppLayout = () => {
                 style={{
                     height: "100vh",
                     position: "sticky",
-                    top:0
+                    top: 0,
                 }}
                 collapsible
                 collapsed={collapsed}
@@ -86,7 +89,7 @@ const AppLayout = () => {
                 <Content>
                     <Routes>
                         {/* <Route path='/' element={<Login/>} /> */}
-                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/" element={<Dashboard />} />
                         <Route
                             path="/all-employees"
                             element={<AllEmployees />}
@@ -95,8 +98,24 @@ const AppLayout = () => {
                             path="/add-employees"
                             element={<AddEmployee />}
                         />
+                        <Route
+                            path="/update-employee"
+                            element={<UpdateEmployee />}
+                        />
                         <Route path="/add-project" element={<AddProject />} />
-                        <Route path="/all-projects" element={<ViewProject />} />
+                        <Route
+                            path="/all-projects"
+                            element={<ViewAllProjects />}
+                        />
+
+                        <Route
+                            path="/view-project"
+                            element={<ViewSingleProject />}
+                        />
+                        <Route
+                            path="/update-project"
+                            element={<UpdateProject />}
+                        />
                     </Routes>
                 </Content>
                 <Footer
