@@ -72,6 +72,7 @@ const AllEmployeeTable = () => {
                                                 <span
                                                     title="View Details"
                                                     className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
+                                                    onClick={()=> navigate('/view-employee')}
                                                 >
                                                     <EyeOutlined
                                                         style={{

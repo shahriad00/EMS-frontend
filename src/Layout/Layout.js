@@ -14,6 +14,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import AddEmployee from "../Pages/Employee/AddEmployee/AddEmployee";
 import AllEmployees from "../Pages/Employee/AllEmployees/AllEmployees";
+import ViewEmployee from "../Pages/Employee/ViewEmployee/ViewEmployee";
+import Profile from "../Pages/Profile/Profile";
 import AddProject from "../Pages/Project/AddProject/AddProject";
 import ViewAllProjects from "../Pages/Project/ViewAllProjects/ViewAllProjects";
 import ViewSingleProject from "../Pages/Project/ViewSingleProject/ViewSingleProject";
@@ -104,6 +106,10 @@ const AppLayout = () => {
                             path="/update-employee"
                             element={<UpdateEmployee />}
                         />
+                        <Route
+                            path="/view-employee"
+                            element={<ViewEmployee />}
+                        />
                         <Route path="/add-project" element={<AddProject />} />
                         <Route
                             path="/all-projects"
@@ -118,9 +124,14 @@ const AppLayout = () => {
                             path="/update-project"
                             element={<UpdateProject />}
                         />
+                        <Route
+                            path="/profile"
+                            element={<Profile />}
+                        />
                     </Routes>
                 </Content>
                 <Footer
+                className="text-slate-400"
                     style={{
                         textAlign: "center",
                     }}
