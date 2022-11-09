@@ -5,8 +5,9 @@ import {
     FileSearchOutlined,
     LogoutOutlined,
     PieChartOutlined,
+    PoweroffOutlined,
     UserAddOutlined,
-    UserOutlined
+    UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
@@ -21,7 +22,10 @@ import Profile from "../Pages/Profile/Profile";
 import AddProject from "../Pages/Project/AddProject/AddProject";
 import ViewAllProjects from "../Pages/Project/ViewAllProjects/ViewAllProjects";
 import ViewSingleProject from "../Pages/Project/ViewSingleProject/ViewSingleProject";
-import { default as UpdateEmployee, default as UpdateProject } from "./../Pages/Project/UpdateProject/UpdateProject";
+import {
+    default as UpdateEmployee,
+    default as UpdateProject,
+} from "./../Pages/Project/UpdateProject/UpdateProject";
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -81,16 +85,19 @@ const AppLayout = () => {
             </Sider>
             <Layout className="site-layout">
                 <Header
-                    className="site-layout-background shadow"
+                    className="site-layout-background shadow flex items-center justify-end"
                     style={{
                         padding: "0 20px",
                         background: "white",
-                        position:'sticky',
-                        top: '0',
-                        zIndex: '999'
+                        position: "sticky",
+                        top: "0",
+                        zIndex: "999",
                     }}
                 >
-                    <p style={{ fontWeight: "bold" }}>header</p>
+                    <button onClick={()=> alert('logout?')} className="flex items-center gap-2 p-2 rounded-lg h-[34px] border hover:shadow-md">
+                        <PoweroffOutlined style={{ color: "red" }} />{" "}
+                        <span>Logout</span>
+                    </button>
                 </Header>
                 <Content>
                     <Routes>
@@ -135,14 +142,11 @@ const AppLayout = () => {
                             path="/leave-application-details"
                             element={<LeaveApplicationDetails />}
                         />
-                        <Route
-                            path="/profile"
-                            element={<Profile />}
-                        />
+                        <Route path="/profile" element={<Profile />} />
                     </Routes>
                 </Content>
                 <Footer
-                className="text-slate-400"
+                    className="text-slate-400"
                     style={{
                         textAlign: "center",
                     }}
