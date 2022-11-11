@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import AllEmployeeTable from "../../../Components/AllEmployee/Table/AllEmployeeTable";
+import axiosInstance from "../../../services/axiosInstance";
 
 const AllEmployees = () => {
+
+    const [allEmployees, setAllEmployees] = useState([])
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted) {
+          axiosInstance
+            .get('/api/all-employees')
+            .then((res) => {
+              if (isMounted) {
+                setAllEmployees(res.data);
+                console.log(res.data)
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        return () => {
+          isMounted = false;
+        };
+      }, []);
+
+
     return (
             <div className="m-4 p-4 bg-white rounded">
                 <div>
@@ -47,12 +75,12 @@ const AllEmployees = () => {
                         </div>
                     </div>
                     <div>
-                        <button className="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">
+                        <button onClick={()=>navigate('/add-employees')} className="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">
                             + Add Employee
                         </button>
                     </div>
                 </div>
-                <AllEmployeeTable/>
+                <AllEmployeeTable allEmployees={allEmployees} />
                 
             </div>
 

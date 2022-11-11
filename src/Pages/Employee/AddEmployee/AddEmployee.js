@@ -1,16 +1,59 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from 'react-toastify';
 import DEPARTMENT from "../../../Assets/data/department";
 import DESIGNATION from "../../../Assets/data/designation";
+import InputErrorMessage from "../../../Components/InputErrorMessage/InputErrorMessage";
+import axiosInstance from "../../../services/axiosInstance";
 
 const AddEmployee = () => {
     const [depertmentID, setDepertmentID] = useState("");
 
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState("");
+    const [contactNumber, setContactNumber] = useState("");
+    const [department, setDepertment] = useState("");
+    const [designation, setDesignation] = useState("");
+    const [salary, setSalary] = useState("");
+    const [address, setAddress] = useState("");
+    const [inputError, setInputError] = useState(false);
+
     const handleDesegnation = (e) => {
-        // handleTextInput(e);
+        setDepertment(e.target.value);
         const DesegnationIndex = DEPARTMENT.find(
             (department) => department.name === e.target.value
         );
         setDepertmentID(DesegnationIndex.id);
+    };
+
+    const handleAddEmployeeForm = (e) => {
+        e.preventDefault();
+
+        if(name === '' && email === '' && dateOfBirth === '' && contactNumber === '' && salary === '' && address === '' ){
+            setInputError(true);
+            toast.error('check input field');
+        }
+        else{
+            axiosInstance.post("/api/employee", {
+                name,
+                email,
+                dateOfBirth,
+                contactNumber,
+                department,
+                salary,
+                designation,
+                address,
+            })
+            .then((res)=>{
+                console.log(res)
+                toast.success('Employee Added successfully')
+            })
+            .catch((err)=>{
+                console.log(err)
+            });
+        }
+
+        
     };
 
     return (
@@ -20,13 +63,14 @@ const AddEmployee = () => {
             </div>
             <div className="flex items-center p-12">
                 <div className="w-full max-w-[700px]">
-                    <form action="https://formbold.com/s/FORM_ID" method="POST">
+                    <form onSubmit={handleAddEmployeeForm}>
+                        {inputError && <InputErrorMessage/>}
                         <div className="flex gap-5">
                             {/*----- full name --------*/}
                             <div className="w-full sm:w-1/2">
                                 <div className="mb-5">
                                     <label
-                                        for="fName"
+                                        htmlFor="fName"
                                         className="mb-3 block text-base text-sm text-[#07074D]"
                                     >
                                         Full Name:
@@ -37,6 +81,9 @@ const AddEmployee = () => {
                                         id="Name"
                                         placeholder="Ex: Jimmy Anderson"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        onChange={(e) =>
+                                            setName(e.target.value)
+                                        }
                                     />
                                 </div>
                             </div>
@@ -45,7 +92,7 @@ const AddEmployee = () => {
                             <div className="w-full sm:w-1/2">
                                 <div className="mb-5">
                                     <label
-                                        for="email"
+                                        htmlFor="email"
                                         className="mb-3 block text-base text-sm text-[#07074D]"
                                     >
                                         Email address:
@@ -56,6 +103,9 @@ const AddEmployee = () => {
                                         id="email"
                                         placeholder="example@email.com"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
                                     />
                                 </div>
                             </div>
@@ -65,7 +115,7 @@ const AddEmployee = () => {
                             <div className="mb-5 w-full sm:w-1/2">
                                 <div className="mb-5">
                                     <label
-                                        for="date-of-birth"
+                                        htmlFor="date-of-birth"
                                         className="mb-3 block text-base text-sm text-[#07074D]"
                                     >
                                         Date of birth:
@@ -75,6 +125,9 @@ const AddEmployee = () => {
                                         name="date-of-birth"
                                         id="date-of-birth"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        onChange={(e) =>
+                                            setDateOfBirth(e.target.value)
+                                        }
                                     />
                                 </div>
                             </div>
@@ -84,7 +137,7 @@ const AddEmployee = () => {
                             <div className="w-full sm:w-1/2">
                                 <div className="mb-5">
                                     <label
-                                        for="contact-number"
+                                        htmlFor="contact-number"
                                         className="mb-3 block text-base text-sm text-[#07074D]"
                                     >
                                         Contact number:
@@ -95,6 +148,9 @@ const AddEmployee = () => {
                                         id="contact-number"
                                         placeholder="Ex: 01***********"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        onChange={(e) =>
+                                            setContactNumber(e.target.value)
+                                        }
                                     />
                                 </div>
                             </div>
@@ -103,7 +159,7 @@ const AddEmployee = () => {
                             {/*----- Department --------*/}
                             <div className="mb-5 flex-1">
                                 <label
-                                    for="department"
+                                    htmlFor="department"
                                     className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Department:
@@ -124,7 +180,7 @@ const AddEmployee = () => {
                             {/*----- Designation --------*/}
                             <div className="mb-5 flex-1">
                                 <label
-                                    for="designation"
+                                    htmlFor="designation"
                                     className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Designation:
@@ -132,6 +188,9 @@ const AddEmployee = () => {
                                 <select
                                     id="designation"
                                     className="w-full bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-800 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400"
+                                    onChange={(e) =>
+                                        setDesignation(e.target.value)
+                                    }
                                 >
                                     {DESIGNATION.map(
                                         ({ name, DEPARTMENT_id }, key) => {
@@ -159,7 +218,7 @@ const AddEmployee = () => {
                         <div className="w-full">
                             <div className="mb-5">
                                 <label
-                                    for="salary"
+                                    htmlFor="salary"
                                     className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Salary:
@@ -170,6 +229,7 @@ const AddEmployee = () => {
                                     id="salary"
                                     placeholder="Ex: 25000"
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    onChange={(e) => setSalary(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -179,7 +239,7 @@ const AddEmployee = () => {
                         <div className="w-full">
                             <div className="mb-5">
                                 <label
-                                    for="salary"
+                                    htmlFor="salary"
                                     className="mb-3 block text-base text-sm text-[#07074D]"
                                 >
                                     Address:
@@ -190,19 +250,24 @@ const AddEmployee = () => {
                                     id="salary"
                                     placeholder="Ex: 34/A Uddipon, Mira-bazar, sylhet."
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    onChange={(e) => setAddress(e.target.value)}
                                 />
                             </div>
                         </div>
 
                         {/*----------- Submit Button --------------*/}
                         <div>
-                            <button className="hover:shadow-form rounded-md bg-[#6A64F1] py-2 px-8 text-center text-base font-semibold text-white outline-none">
+                            <button
+                                type="submit"
+                                className="hover:shadow-md rounded-md bg-[#112140] hover:bg-white hover:text-black hover:border py-2 px-8 text-center text-base font-semibold text-white outline-none"
+                            >
                                 Submit
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
+            <ToastContainer/>
         </div>
     );
 };
