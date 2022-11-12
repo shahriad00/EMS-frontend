@@ -7,11 +7,13 @@ import {
     PieChartOutlined,
     PoweroffOutlined,
     UserAddOutlined,
-    UserOutlined,
+    UserOutlined
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import Login from "../Pages/Auth/Login/Login";
+import Signup from "../Pages/Auth/Signup/Signup";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import AddEmployee from "../Pages/Employee/AddEmployee/AddEmployee";
 import AllEmployees from "../Pages/Employee/AllEmployees/AllEmployees";
@@ -22,10 +24,8 @@ import Profile from "../Pages/Profile/Profile";
 import AddProject from "../Pages/Project/AddProject/AddProject";
 import ViewAllProjects from "../Pages/Project/ViewAllProjects/ViewAllProjects";
 import ViewSingleProject from "../Pages/Project/ViewSingleProject/ViewSingleProject";
-import {
-    default as UpdateEmployee,
-    default as UpdateProject,
-} from "./../Pages/Project/UpdateProject/UpdateProject";
+import UpdateEmployee from './../Pages/Employee/UpdateEmployee/UpdateEmployee';
+import UpdateProject from "./../Pages/Project/UpdateProject/UpdateProject";
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -50,20 +50,13 @@ const items = [
 
 const AppLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const [loggedin, setLoggedin] = useState(false)
     const navigate = useNavigate();
 
     return (
-        <Layout
-            style={{
-                minHeight: "100vh",
-            }}
-        >
+        <Layout className="min-h-screen">
             <Sider
-                style={{
-                    height: "100vh",
-                    position: "sticky",
-                    top: 0,
-                }}
+                className={`${loggedin ? 'block' : 'hidden'} h-screen sticky top-0`}
                 collapsible
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}
@@ -85,7 +78,7 @@ const AppLayout = () => {
             </Sider>
             <Layout className="site-layout">
                 <Header
-                    className="site-layout-background shadow flex items-center justify-end"
+                    className={`${loggedin ? 'block' : 'hidden'} shadow flex items-center justify-end`}
                     style={{
                         padding: "0 20px",
                         background: "white",
@@ -94,14 +87,18 @@ const AppLayout = () => {
                         zIndex: "999",
                     }}
                 >
-                    <button onClick={()=> alert('logout?')} className="flex items-center gap-2 p-2 rounded-lg h-[34px] border hover:shadow-md">
+                    <button
+                        onClick={() => alert("logout?")}
+                        className="flex items-center gap-2 p-2 rounded-lg h-[34px] border hover:shadow-md"
+                    >
                         <PoweroffOutlined style={{ color: "red" }} />{" "}
                         <span>Logout</span>
                     </button>
                 </Header>
                 <Content>
                     <Routes>
-                        {/* <Route path='/' element={<Login/>} /> */}
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/sign-up" element={<Signup />} />
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route
@@ -145,14 +142,9 @@ const AppLayout = () => {
                         <Route path="/profile" element={<Profile />} />
                     </Routes>
                 </Content>
-                <Footer
-                    className="text-slate-400"
-                    style={{
-                        textAlign: "center",
-                    }}
-                >
-                    EMS ©{new Date().getFullYear()} Created by Shah Jahidul
-                    Islam Riad
+                <Footer className="text-slate-400 text-center">
+                    EMS ©{new Date().getFullYear()} Created by Shah Jahidul Islam Riad
+                    
                 </Footer>
             </Layout>
         </Layout>

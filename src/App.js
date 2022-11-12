@@ -1,11 +1,12 @@
-import React from 'react';
-import AppLayout from './Layout/Layout';
+import React, { useState } from "react";
+import AppLayout from "./Layout/Layout";
 
 const App = () => {
-  return (
-    <>
-      <AppLayout/> 
-    </>
-  );
+    const [token, setToken] = useState(false);
+    return (
+        <>
+            <AppLayout />
+        </>
+    );
 };
 export default App;
