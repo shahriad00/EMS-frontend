@@ -169,6 +169,7 @@ const AddEmployee = () => {
                                     className="w-full bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-800 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400"
                                     onChange={(e) => handleDesegnation(e)}
                                 >
+                                    <option selected="true" disabled="disabled">choose one</option>
                                     {DEPARTMENT.map(({ name, id }) => (
                                         <option key={id} value={name}>
                                             {name}
@@ -192,6 +193,7 @@ const AddEmployee = () => {
                                         setDesignation(e.target.value)
                                     }
                                 >
+                                    <option selected="true" disabled="disabled">choose one</option>
                                     {DESIGNATION.map(
                                         ({ name, DEPARTMENT_id }, key) => {
                                             if (

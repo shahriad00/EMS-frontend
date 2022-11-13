@@ -8,7 +8,7 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
-    const [isAdmin, setIsAdmin] = useState("");
+    const [role, setRole] = useState("");
 
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Signup = () => {
             email === "" &&
             password === "" &&
             password2 === "" &&
-            isAdmin === ""
+            role === ""
         ) {
             toast.error("Please fill-up all the input fields");
         } else {
@@ -30,14 +30,19 @@ const Signup = () => {
                         name,
                         email,
                         password,
-                        isAdmin,
+                        role,
                     })
                     .then((res) => {
                         console.log(res);
                         toast.success(res.data.message);
+                        localStorage.setItem('user',JSON.stringify(res.data.user))
+                        localStorage.setItem('token',JSON.stringify(res.data.token))
                         alert(res.data.message)
-                        if(isAdmin === 'admin'){
-                            navigate('/')
+                        if(role === 'admin' || role === 'employee'){
+                           
+                            navigate('/');
+                            window.location.reload();
+                            
                         }
                     })
                     .catch((err) => {
@@ -45,7 +50,7 @@ const Signup = () => {
                         toast.error("Something went wrong! please try again")
                     });
             } else {
-                toast.error("invalid password!");
+                toast.error("invalid input! please try again");
             }
         }
     };
@@ -151,10 +156,10 @@ const Signup = () => {
                                         id="admin"
                                         class="block p-2 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                         onChange={(e) =>
-                                            setIsAdmin(e.target.value)
+                                            setRole(e.target.value)
                                         }
                                     >
-                                        <option selected>
+                                        <option selected="true" disabled="disabled">
                                             Choose an option
                                         </option>
                                         <option value="admin">Admin</option>

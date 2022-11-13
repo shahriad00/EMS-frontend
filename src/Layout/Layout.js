@@ -10,8 +10,10 @@ import {
     UserOutlined
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import Error404 from "../Components/404/404";
 import Login from "../Pages/Auth/Login/Login";
 import Signup from "../Pages/Auth/Signup/Signup";
 import Dashboard from "../Pages/Dashboard/Dashboard";
@@ -24,7 +26,7 @@ import Profile from "../Pages/Profile/Profile";
 import AddProject from "../Pages/Project/AddProject/AddProject";
 import ViewAllProjects from "../Pages/Project/ViewAllProjects/ViewAllProjects";
 import ViewSingleProject from "../Pages/Project/ViewSingleProject/ViewSingleProject";
-import UpdateEmployee from './../Pages/Employee/UpdateEmployee/UpdateEmployee';
+import UpdateEmployee from "./../Pages/Employee/UpdateEmployee/UpdateEmployee";
 import UpdateProject from "./../Pages/Project/UpdateProject/UpdateProject";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -50,13 +52,34 @@ const items = [
 
 const AppLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const [loggedin, setLoggedin] = useState(false)
+    const [isLoggedin, setIsLoggedin] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted) {
+            const token = JSON.parse(localStorage.getItem("token"));
+            token ? setIsLoggedin(true) : setIsLoggedin(false);
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    const handleLogOut = () => {
+        setIsLoggedin(false);
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        toast.success("logged out successfully");
+        navigate("/login");
+    };
 
     return (
         <Layout className="min-h-screen">
             <Sider
-                className={`${loggedin ? 'block' : 'hidden'} h-screen sticky top-0`}
+                className={`${
+                    isLoggedin ? "block" : "hidden"
+                } h-screen sticky top-0`}
                 collapsible
                 collapsed={collapsed}
                 onCollapse={(value) => setCollapsed(value)}
@@ -65,7 +88,7 @@ const AppLayout = () => {
                 <Menu
                     onClick={({ key }) => {
                         if (key === "/logout") {
-                            alert("logout");
+                            handleLogOut();
                         } else {
                             navigate(key);
                         }
@@ -77,8 +100,11 @@ const AppLayout = () => {
                 />
             </Sider>
             <Layout className="site-layout">
+                <ToastContainer />
                 <Header
-                    className={`${loggedin ? 'block' : 'hidden'} shadow flex items-center justify-end`}
+                    className={`${
+                        isLoggedin ? "block" : "hidden"
+                    } shadow flex items-center justify-end`}
                     style={{
                         padding: "0 20px",
                         background: "white",
@@ -88,7 +114,7 @@ const AppLayout = () => {
                     }}
                 >
                     <button
-                        onClick={() => alert("logout?")}
+                        onClick={handleLogOut}
                         className="flex items-center gap-2 p-2 rounded-lg h-[34px] border hover:shadow-md"
                     >
                         <PoweroffOutlined style={{ color: "red" }} />{" "}
@@ -98,53 +124,68 @@ const AppLayout = () => {
                 <Content>
                     <Routes>
                         <Route path="/login" element={<Login />} />
-                        <Route path="/sign-up" element={<Signup />} />
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route
-                            path="/all-employees"
-                            element={<AllEmployees />}
-                        />
-                        <Route
-                            path="/add-employees"
-                            element={<AddEmployee />}
-                        />
-                        <Route
-                            path="/update-employee"
-                            element={<UpdateEmployee />}
-                        />
-                        <Route
-                            path="/view-employee"
-                            element={<ViewEmployee />}
-                        />
-                        <Route path="/add-project" element={<AddProject />} />
-                        <Route
-                            path="/all-projects"
-                            element={<ViewAllProjects />}
-                        />
 
-                        <Route
-                            path="/view-project"
-                            element={<ViewSingleProject />}
-                        />
-                        <Route
-                            path="/update-project"
-                            element={<UpdateProject />}
-                        />
-                        <Route
-                            path="/leave-applications"
-                            element={<LeaveApplication />}
-                        />
-                        <Route
-                            path="/leave-application-details"
-                            element={<LeaveApplicationDetails />}
-                        />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/sign-up" element={<Signup />} />
+
+                        <Route path="*" element={<Error404 />} />
+
+                        {isLoggedin && (
+                            <>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route
+                                path="/all-employees"
+                                element={<AllEmployees />}
+                            />
+                            <Route
+                                path="/add-employees"
+                                element={<AddEmployee />}
+                            />
+                            <Route
+                                path="/update-employee"
+                                element={<UpdateEmployee />}
+                            />
+                            <Route
+                                path="/view-employee"
+                                element={<ViewEmployee />}
+                            />
+                            <Route
+                                path="/add-project"
+                                element={<AddProject />}
+                            />
+                            <Route
+                                path="/all-projects"
+                                element={<ViewAllProjects />}
+                            />
+
+                            <Route
+                                path="/view-project"
+                                element={<ViewSingleProject />}
+                            />
+                            <Route
+                                path="/update-project"
+                                element={<UpdateProject />}
+                            />
+                            <Route
+                                path="/leave-applications"
+                                element={<LeaveApplication />}
+                            />
+                            <Route
+                                path="/leave-application-details"
+                                element={<LeaveApplicationDetails />}
+                            />
+                            <Route path="/profile" element={<Profile />} />
+                            </>
+                        )}
+                            
+                        
+
+                       
                     </Routes>
                 </Content>
                 <Footer className="text-slate-400 text-center">
-                    EMS ©{new Date().getFullYear()} Created by Shah Jahidul Islam Riad
-                    
+                    EMS ©{new Date().getFullYear()} Created by Shah Jahidul
+                    Islam Riad
                 </Footer>
             </Layout>
         </Layout>
