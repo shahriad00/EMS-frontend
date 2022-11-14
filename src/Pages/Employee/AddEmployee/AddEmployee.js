@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import DEPARTMENT from "../../../Assets/data/department";
 import DESIGNATION from "../../../Assets/data/designation";
@@ -17,6 +18,8 @@ const AddEmployee = () => {
     const [salary, setSalary] = useState("");
     const [address, setAddress] = useState("");
     const [inputError, setInputError] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleDesegnation = (e) => {
         setDepertment(e.target.value);
@@ -47,9 +50,11 @@ const AddEmployee = () => {
             .then((res)=>{
                 console.log(res)
                 toast.success('Employee Added successfully')
+                navigate('/all-employees')
             })
             .catch((err)=>{
                 console.log(err)
+                toast.error('Something went wrong! Please try again')
             });
         }
 

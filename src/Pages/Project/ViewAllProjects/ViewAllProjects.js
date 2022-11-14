@@ -9,7 +9,8 @@ const ViewAllProjects = () => {
                         All projects
                     </h1>
                 </div>
-                <div className="flex align-center space-between py-4">
+                
+                {/* <div className="flex align-center space-between py-4">
                     <div className="flex flex-1 search-bar">
                         <div className="flex justify-center">
                             <div className="xl:w-96">
@@ -46,12 +47,12 @@ const ViewAllProjects = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <div>
+                    <div>
                         <button className="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700">
                             + Add project
                         </button>
-                    </div> */}
-                </div>
+                    </div> 
+                </div>*/}
                 <AllProjectsTable/>
                 
             </div>
