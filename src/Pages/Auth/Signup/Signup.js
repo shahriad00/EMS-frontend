@@ -37,7 +37,6 @@ const Signup = () => {
                         toast.success(res.data.message);
                         localStorage.setItem('user',JSON.stringify(res.data.user))
                         localStorage.setItem('token',JSON.stringify(res.data.token))
-                        alert(res.data.message)
                         if(role === 'admin' || role === 'employee'){
                            
                             navigate('/');

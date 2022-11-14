@@ -21,6 +21,7 @@ import AllEmployees from "../Pages/Employee/AllEmployees/AllEmployees";
 import ViewEmployee from "../Pages/Employee/ViewEmployee/ViewEmployee";
 import ApplyForLeave from "../Pages/EmployeePanel/ApplyForLeave/ApplyForLeave";
 import MarkAttendance from "../Pages/EmployeePanel/MarkAttendance/MarkAttendance";
+import ViewAppliedLeaves from "../Pages/EmployeePanel/ViewAppliedLeaves/ViewAppliedLeaves";
 import ViewAttendance from "../Pages/EmployeePanel/ViewAttendance/ViewAttendance";
 import LeaveApplication from "../Pages/LeaveApplication/LeaveApplication";
 import LeaveApplicationDetails from "../Pages/LeaveApplication/LeaveApplicationDetails";
@@ -55,6 +56,7 @@ const items = [
 const EmployeeItems = [
     getItem("Dashboard", "/employee/dashboard", <PieChartOutlined />),
     getItem("Apply for Leave", "/apply-leave-application", <FileOutlined />),
+    getItem("All Applied Leaves", "/view-applied-leaves", <FileOutlined />),
     getItem(
         "View Attendance",
         "/employee/view-attendance",
@@ -231,6 +233,10 @@ const AppLayout = () => {
                                 <Route
                                     path="/employee/mark-attendance"
                                     element={<MarkAttendance />}
+                                />
+                                <Route
+                                    path="/view-applied-leaves"
+                                    element={<ViewAppliedLeaves />}
                                 />
                                 
                             </>

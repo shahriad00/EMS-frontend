@@ -1,7 +1,49 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import InputErrorMessage from "../../../Components/InputErrorMessage/InputErrorMessage";
+import axiosInstance from "../../../services/axiosInstance";
 
 const ApplyForLeave = () => {
-    const [depertmentID, setDepertmentID] = useState("");
+    const [title, setTitle] = useState("");
+    const [type, setType] = useState("");
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [description, setDescription] = useState("");
+    const [inputError,setInputError] = useState("");
+
+    const navigate = useNavigate();
+
+
+    const handleApplyForLeaveForm = (e) =>{
+        e.preventDefault();
+        const user = JSON.parse(localStorage.getItem('user'))
+        if(title === '' && type === '' && startDate === '' && endDate === '' && description === ''){
+            setInputError(true);
+            toast.error('check input field');
+        }
+        else{
+            axiosInstance.post("/api/apply-for-leave", {
+                applicantID: user._id,
+                name: user.name,
+                title,
+                type,
+                startDate,
+                endDate,
+                description
+            })
+            .then((res)=>{
+                console.log(res)
+                toast.success('Applied for leave successfully');
+                navigate('/view-applied-leaves')
+            })
+            .catch((err)=>{
+                console.log(err)
+                toast.error('Something went wrong! Please try again')
+            });
+        }
+
+    }
 
     return (
         <div className="m-4 p-4 bg-white rounded">
@@ -12,7 +54,8 @@ const ApplyForLeave = () => {
             </div>
             <div className="flex items-center p-12">
                 <div className="w-full max-w-[700px]">
-                    <form>
+                    <form onSubmit={handleApplyForLeaveForm}>
+                    {inputError && <InputErrorMessage/>}
                         <div className="flex gap-5">
                             {/*----- full name --------*/}
                             <div className="w-full sm:w-1/2">
@@ -21,14 +64,15 @@ const ApplyForLeave = () => {
                                         for="title"
                                         className="mb-3 block text-base text-sm text-[#07074D]"
                                     >
-                                        Subject:
+                                        Title:
                                     </label>
                                     <input
                                         type="text"
                                         name="title"
                                         id="title"
-                                        placeholder="Ex: hotel management system"
+                                        placeholder="Ex: Leave application"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        onChange={e=>setTitle(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -45,6 +89,7 @@ const ApplyForLeave = () => {
                                     <select
                                         id="admin"
                                         class="block p-2 mb-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                        onChange={e=>setType(e.target.value)}
                                     >
                                         <option
                                             selected="true"
@@ -84,6 +129,7 @@ const ApplyForLeave = () => {
                                         name="start-date"
                                         id="start-date"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        onChange={e=>setStartDate(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -102,6 +148,7 @@ const ApplyForLeave = () => {
                                         name="end-date"
                                         id="end-date"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        onChange={e=>setEndDate(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -125,8 +172,8 @@ const ApplyForLeave = () => {
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                     placeholder="Example: 
                                     Hi, (Admin)                                   
-                                    Your Detailed description .........
-                                    "
+                                    Your Detailed description ........."
+                                    onChange={e=>setDescription(e.target.value)}
                                 />
                             </div>
                         </div>

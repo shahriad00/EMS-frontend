@@ -32,7 +32,6 @@ const Login = () => {
                         "token",
                         JSON.stringify(res.data.token)
                     );
-                    alert(res.data.message);
                     if (role === "admin") {
                         navigate("/");
                         window.location.reload();
