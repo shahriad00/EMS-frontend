@@ -13,13 +13,15 @@ import { Layout, Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import Error404 from "../Components/404/404";
 import Login from "../Pages/Auth/Login/Login";
 import Signup from "../Pages/Auth/Signup/Signup";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import AddEmployee from "../Pages/Employee/AddEmployee/AddEmployee";
 import AllEmployees from "../Pages/Employee/AllEmployees/AllEmployees";
 import ViewEmployee from "../Pages/Employee/ViewEmployee/ViewEmployee";
+import ApplyForLeave from "../Pages/EmployeePanel/ApplyForLeave/ApplyForLeave";
+import MarkAttendance from "../Pages/EmployeePanel/MarkAttendance/MarkAttendance";
+import ViewAttendance from "../Pages/EmployeePanel/ViewAttendance/ViewAttendance";
 import LeaveApplication from "../Pages/LeaveApplication/LeaveApplication";
 import LeaveApplicationDetails from "../Pages/LeaveApplication/LeaveApplicationDetails";
 import Profile from "../Pages/Profile/Profile";
@@ -50,15 +52,35 @@ const items = [
     getItem("Logout", "/logout", <LogoutOutlined />),
 ];
 
+const EmployeeItems = [
+    getItem("Dashboard", "/employee/dashboard", <PieChartOutlined />),
+    getItem("Apply for Leave", "/apply-leave-application", <FileOutlined />),
+    getItem(
+        "View Attendance",
+        "/employee/view-attendance",
+        <AlignRightOutlined />
+    ),
+    getItem(
+        "Mark Attendance",
+        "/employee/mark-attendance",
+        <FileSearchOutlined />
+    ),
+    getItem("View Profile", "/profile", <UserOutlined />),
+    getItem("Logout", "/logout", <LogoutOutlined />),
+];
+
 const AppLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [isLoggedin, setIsLoggedin] = useState(false);
+    const [user, setUser] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {
             const token = JSON.parse(localStorage.getItem("token"));
+            const user = JSON.parse(localStorage.getItem("user"));
+            setUser(user);
             token ? setIsLoggedin(true) : setIsLoggedin(false);
         }
         return () => {
@@ -85,19 +107,36 @@ const AppLayout = () => {
                 onCollapse={(value) => setCollapsed(value)}
             >
                 <div className="logo flex justify-center"></div>
-                <Menu
-                    onClick={({ key }) => {
-                        if (key === "/logout") {
-                            handleLogOut();
-                        } else {
-                            navigate(key);
-                        }
-                    }}
-                    theme="dark"
-                    defaultSelectedKeys={["1"]}
-                    mode="inline"
-                    items={items}
-                />
+                {user?.role === "admin" && (
+                    <Menu
+                        onClick={({ key }) => {
+                            if (key === "/logout") {
+                                handleLogOut();
+                            } else {
+                                navigate(key);
+                            }
+                        }}
+                        theme="dark"
+                        defaultSelectedKeys={["/dashboard"]}
+                        mode="inline"
+                        items={items}
+                    />
+                )}
+                {user?.role === "employee" && (
+                    <Menu
+                        onClick={({ key }) => {
+                            if (key === "/logout") {
+                                handleLogOut();
+                            } else {
+                                navigate(key);
+                            }
+                        }}
+                        theme="dark"
+                        defaultSelectedKeys={["/dashboard"]}
+                        mode="inline"
+                        items={EmployeeItems}
+                    />
+                )}
             </Sider>
             <Layout className="site-layout">
                 <ToastContainer />
@@ -127,60 +166,75 @@ const AppLayout = () => {
 
                         <Route path="/sign-up" element={<Signup />} />
 
-                        <Route path="*" element={<Error404 />} />
-
-                        {isLoggedin && (
+                        {isLoggedin && user.role === "admin" && (
                             <>
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/dashboard" element={<Dashboard />} />
-                            <Route
-                                path="/all-employees"
-                                element={<AllEmployees />}
-                            />
-                            <Route
-                                path="/add-employees"
-                                element={<AddEmployee />}
-                            />
-                            <Route
-                                path="/update-employee"
-                                element={<UpdateEmployee />}
-                            />
-                            <Route
-                                path="/view-employee"
-                                element={<ViewEmployee />}
-                            />
-                            <Route
-                                path="/add-project"
-                                element={<AddProject />}
-                            />
-                            <Route
-                                path="/all-projects"
-                                element={<ViewAllProjects />}
-                            />
+                                <Route path="/" element={<Dashboard />} />
+                                <Route
+                                    path="/dashboard"
+                                    element={<Dashboard />}
+                                />
+                                <Route
+                                    path="/all-employees"
+                                    element={<AllEmployees />}
+                                />
+                                <Route
+                                    path="/add-employees"
+                                    element={<AddEmployee />}
+                                />
+                                <Route
+                                    path="/update-employee"
+                                    element={<UpdateEmployee />}
+                                />
+                                <Route
+                                    path="/view-employee"
+                                    element={<ViewEmployee />}
+                                />
+                                <Route
+                                    path="/add-project"
+                                    element={<AddProject />}
+                                />
+                                <Route
+                                    path="/all-projects"
+                                    element={<ViewAllProjects />}
+                                />
 
-                            <Route
-                                path="/view-project"
-                                element={<ViewSingleProject />}
-                            />
-                            <Route
-                                path="/update-project"
-                                element={<UpdateProject />}
-                            />
-                            <Route
-                                path="/leave-applications"
-                                element={<LeaveApplication />}
-                            />
-                            <Route
-                                path="/leave-application-details"
-                                element={<LeaveApplicationDetails />}
-                            />
-                            <Route path="/profile" element={<Profile />} />
+                                <Route
+                                    path="/view-project"
+                                    element={<ViewSingleProject />}
+                                />
+                                <Route
+                                    path="/update-project"
+                                    element={<UpdateProject />}
+                                />
+                                <Route
+                                    path="/leave-applications"
+                                    element={<LeaveApplication />}
+                                />
+                                <Route
+                                    path="/leave-application-details"
+                                    element={<LeaveApplicationDetails />}
+                                />
+                                <Route path="/profile" element={<Profile />} />
                             </>
                         )}
-                            
-                        
-
-                       
+                        {isLoggedin && user.role === "employee" && (
+                            <>
+                                <Route path="/profile" element={<Profile />} />
+                                <Route
+                                    path="/apply-leave-application"
+                                    element={<ApplyForLeave />}
+                                />
+                                <Route
+                                    path="/employee/view-attendance"
+                                    element={<ViewAttendance />}
+                                />
+                                <Route
+                                    path="/employee/mark-attendance"
+                                    element={<MarkAttendance />}
+                                />
+                                
+                            </>
+                        )}
                     </Routes>
                 </Content>
                 <Footer className="text-slate-400 text-center">

@@ -33,8 +33,12 @@ const Login = () => {
                         JSON.stringify(res.data.token)
                     );
                     alert(res.data.message);
-                    if (role === "admin" || role === 'employee') {
+                    if (role === "admin") {
                         navigate("/");
+                        window.location.reload();
+                    }
+                    if (role === "employee") {
+                        navigate("/employee/dashboard");
                         window.location.reload();
                     }
                 })
