@@ -1,6 +1,27 @@
-import React from "react";
+import moment from "moment/moment";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axiosInstance from "../../../services/axiosInstance";
 
 const ViewEmployee = () => {
+    const [employee,  setEmployee] = useState({})
+
+    let { id } = useParams();
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted) {
+            axiosInstance
+                .get(`/api/employee-details/${id}`)
+                .then((res) => {
+                    console.log(res.data);
+                    setEmployee(res.data);
+                })
+                .catch((err) => console.log(err));
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, []);
     return (
         <>
             <div class="px-20">
@@ -29,31 +50,28 @@ const ViewEmployee = () => {
 
                     <div class="mt-10 text-center border-b pb-12">
                         <h1 class="text-4xl font-medium text-gray-700">
-                            Jessica Jones
+                            {employee.name}
                         </h1>
                         <p class="font-light text-gray-600 mt-3">
-                            Bucharest, Romania
+                            {employee.address}
                         </p>
 
                         <p class="mt-8 text-gray-500">
-                            Solution Manager - Creative Tim Officer
+                            {employee.department} - {employee.designation}
                         </p>
-                        <p class="mt-2 text-gray-500">
-                            University of Computer Science
+                        <p class="mt-4 text-gray-500">
+                            Email: {employee.email}
                         </p>
-                        <p class="mt-2 text-gray-500">
-                            salary: $25,000
+                        <p class="mt-4 text-gray-500">
+                            Number: {employee.contactNumber}
                         </p>
-                    </div>
-
-                    <div class="mt-12 flex flex-col justify-center">
-                        <p class="text-gray-600 text-center font-light lg:px-16">
-                            An artist of considerable range, Ryan — the name
-                            taken by Melbourne-raised, Brooklyn-based Nick
-                            Murphy — writes, performs and records all of his own
-                            music, giving it a warm, intimate feel with a solid
-                            groove structure. An artist of considerable range.
+                        <p class="mt-4 text-gray-500">
+                            salary: ${employee.salary}
                         </p>
+                        <p class="mt-4 text-gray-500">
+                            Date of birth: {moment(employee.dateOfBirth).format('LLLL')}
+                        </p>
+                        
                     </div>
                 </div>
             </div>

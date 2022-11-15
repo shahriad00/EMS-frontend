@@ -188,7 +188,7 @@ const AppLayout = () => {
                                     element={<UpdateEmployee />}
                                 />
                                 <Route
-                                    path="/view-employee"
+                                    path="/view-employee/:id"
                                     element={<ViewEmployee />}
                                 />
                                 <Route

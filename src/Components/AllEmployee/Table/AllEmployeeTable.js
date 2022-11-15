@@ -75,7 +75,7 @@ const AllEmployeeTable = ({ allEmployees }) => {
                                                             className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
                                                             onClick={() =>
                                                                 navigate(
-                                                                    "/view-employee"
+                                                                    `/view-employee/${employee._id}`
                                                                 )
                                                             }
                                                         >
@@ -130,7 +130,7 @@ const AllEmployeeTable = ({ allEmployees }) => {
                                                             title="View project details"
                                                             onClick={() =>
                                                                 navigate(
-                                                                    "/all-projects"
+                                                                    "/all-projects/"
                                                                 )
                                                             }
                                                             className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
