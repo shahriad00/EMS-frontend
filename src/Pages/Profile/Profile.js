@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from "react";
 
 const Profile = () => {
@@ -53,7 +54,7 @@ const Profile = () => {
                             <strong>Email :</strong> {user.email}
                         </p>
                         <p class="mt-2 text-gray-500">
-                            Created at : {user.dateAdded}
+                            Created at : {moment(user.dateAdded).format('LLLL')}
                         </p>
                     </div>
                 </div>

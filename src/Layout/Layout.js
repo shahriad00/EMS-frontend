@@ -213,7 +213,7 @@ const AppLayout = () => {
                                     element={<LeaveApplication />}
                                 />
                                 <Route
-                                    path="/leave-application-details"
+                                    path="/leave-application-details/:id"
                                     element={<LeaveApplicationDetails />}
                                 />
                                 <Route path="/profile" element={<Profile />} />
@@ -238,7 +238,6 @@ const AppLayout = () => {
                                     path="/view-applied-leaves"
                                     element={<ViewAppliedLeaves />}
                                 />
-                                
                             </>
                         )}
                     </Routes>
