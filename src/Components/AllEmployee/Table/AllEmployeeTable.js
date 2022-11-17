@@ -89,6 +89,11 @@ const AllEmployeeTable = ({ allEmployees, handleDeleteEmployee }) => {
                                                         <span
                                                             title="Edit Employee Details"
                                                             className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
+                                                            onClick={() =>
+                                                                navigate(
+                                                                    `/update-employee/${employee._id}`
+                                                                )
+                                                            }
                                                         >
                                                             <EditOutlined
                                                                 style={{

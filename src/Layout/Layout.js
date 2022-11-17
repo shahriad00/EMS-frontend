@@ -48,7 +48,6 @@ const items = [
     getItem("Add Employees", "/add-employees", <UserAddOutlined />),
     getItem("Leave Applications", "/leave-applications", <FileOutlined />),
     getItem("View Attendance", "/view-attendance", <AlignRightOutlined />),
-    getItem("Mark Attendance", "/mark-attendance", <FileSearchOutlined />),
     getItem("View Profile", "/profile", <UserOutlined />),
     getItem("Logout", "/logout", <LogoutOutlined />),
 ];
@@ -184,7 +183,7 @@ const AppLayout = () => {
                                     element={<AddEmployee />}
                                 />
                                 <Route
-                                    path="/update-employee"
+                                    path="/update-employee/:id"
                                     element={<UpdateEmployee />}
                                 />
                                 <Route
