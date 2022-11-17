@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
+import validator from "validator";
 import DEPARTMENT from "../../../Assets/data/department";
 import DESIGNATION from "../../../Assets/data/designation";
 import InputErrorMessage from "../../../Components/InputErrorMessage/InputErrorMessage";
@@ -18,6 +19,8 @@ const AddEmployee = () => {
     const [salary, setSalary] = useState("");
     const [address, setAddress] = useState("");
     const [inputError, setInputError] = useState(false);
+    const [emailError, setEmailError] = useState("");
+    const [contactError, setContactError] = useState("");
 
     const navigate = useNavigate();
 
@@ -29,36 +32,53 @@ const AddEmployee = () => {
         setDepertmentID(DesegnationIndex.id);
     };
 
+    const validateEmail = (e) => {
+        setEmail(e.target.value);
+
+        if (validator.isEmail(email)) {
+            setEmailError("");
+        } else {
+            setEmailError("Enter valid Email!");
+        }
+    };
+
     const handleAddEmployeeForm = (e) => {
         e.preventDefault();
 
-        if(name === '' && email === '' && dateOfBirth === '' && contactNumber === '' && salary === '' && address === '' ){
+        if (
+            name === "" &&
+            email === "" &&
+            dateOfBirth === "" &&
+            contactNumber === "" &&
+            department === "" &&
+            designation === "" &&
+            salary === "" &&
+            address === ""
+        ) {
             setInputError(true);
-            toast.error('check input field');
+            toast.error("check input field");
+        } else {
+            axiosInstance
+                .post("/api/employee", {
+                    name,
+                    email,
+                    dateOfBirth,
+                    contactNumber,
+                    department,
+                    salary,
+                    designation,
+                    address,
+                })
+                .then((res) => {
+                    console.log(res);
+                    toast.success("Employee Added successfully");
+                    navigate("/all-employees");
+                })
+                .catch((err) => {
+                    console.log(err);
+                    toast.error("Something went wrong! Please try again");
+                });
         }
-        else{
-            axiosInstance.post("/api/employee", {
-                name,
-                email,
-                dateOfBirth,
-                contactNumber,
-                department,
-                salary,
-                designation,
-                address,
-            })
-            .then((res)=>{
-                console.log(res)
-                toast.success('Employee Added successfully')
-                navigate('/all-employees')
-            })
-            .catch((err)=>{
-                console.log(err)
-                toast.error('Something went wrong! Please try again')
-            });
-        }
-
-        
     };
 
     return (
@@ -69,7 +89,7 @@ const AddEmployee = () => {
             <div className="flex items-center p-12">
                 <div className="w-full max-w-[700px]">
                     <form onSubmit={handleAddEmployeeForm}>
-                        {inputError && <InputErrorMessage/>}
+                        {inputError && <InputErrorMessage />}
                         <div className="flex gap-5">
                             {/*----- full name --------*/}
                             <div className="w-full sm:w-1/2">
@@ -84,6 +104,8 @@ const AddEmployee = () => {
                                         type="text"
                                         name="Name"
                                         id="Name"
+                                        min="5"
+                                        max="20"
                                         placeholder="Ex: Jimmy Anderson"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                         onChange={(e) =>
@@ -108,10 +130,15 @@ const AddEmployee = () => {
                                         id="email"
                                         placeholder="example@email.com"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        onChange={(e) =>
-                                            setEmail(e.target.value)
-                                        }
+                                        onChange={(e) => validateEmail(e)}
                                     />
+                                    {email === "" ? (
+                                        <></>
+                                    ) : (
+                                        <span className="text-red-600">
+                                            {emailError}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -129,6 +156,8 @@ const AddEmployee = () => {
                                         type="date"
                                         name="date-of-birth"
                                         id="date-of-birth"
+                                        min="1975-01-02"
+                                        max="2001-01-31"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                         onChange={(e) =>
                                             setDateOfBirth(e.target.value)
@@ -153,10 +182,20 @@ const AddEmployee = () => {
                                         id="contact-number"
                                         placeholder="Ex: 01***********"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        onChange={(e) =>
-                                            setContactNumber(e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            setContactNumber(e.target.value);
+                                            if (e.target.value.length !== 11) {
+                                                setContactError("in valid number(must be 11 digit)");
+                                            }else{setContactError('')}
+                                        }}
                                     />
+                                    {contactNumber === "" ? (
+                                        <></>
+                                    ) : (
+                                        <span className="text-red-600">
+                                            {contactError}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -174,7 +213,9 @@ const AddEmployee = () => {
                                     className="w-full bg-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-800 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400"
                                     onChange={(e) => handleDesegnation(e)}
                                 >
-                                    <option selected="true" disabled="disabled">choose one</option>
+                                    <option selected="true" disabled="disabled">
+                                        choose one
+                                    </option>
                                     {DEPARTMENT.map(({ name, id }) => (
                                         <option key={id} value={name}>
                                             {name}
@@ -198,7 +239,9 @@ const AddEmployee = () => {
                                         setDesignation(e.target.value)
                                     }
                                 >
-                                    <option selected="true" disabled="disabled">choose one</option>
+                                    <option selected="true" disabled="disabled">
+                                        choose one
+                                    </option>
                                     {DESIGNATION.map(
                                         ({ name, DEPARTMENT_id }, key) => {
                                             if (
@@ -234,6 +277,8 @@ const AddEmployee = () => {
                                     type="number"
                                     name="salary"
                                     id="salary"
+                                    min="1000"
+                                    max="1000000"
                                     placeholder="Ex: 25000"
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-2 text-base text-sm text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                     onChange={(e) => setSalary(e.target.value)}
@@ -274,7 +319,7 @@ const AddEmployee = () => {
                     </form>
                 </div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };

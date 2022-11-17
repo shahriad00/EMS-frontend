@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const AllEmployeeTable = ({ allEmployees, handleDeleteEmployee }) => {
+const AllEmployeeTable = ({ allEmployees, handleDeleteEmployee, searchTerm }) => {
     const navigate = useNavigate();
 
     return (
@@ -54,7 +54,15 @@ const AllEmployeeTable = ({ allEmployees, handleDeleteEmployee }) => {
                                 </thead>
                                 <tbody>
                                     {
-                                        allEmployees.map((employee) => (
+                                        // eslint-disable-next-line array-callback-return
+                                        allEmployees.filter((employee)=>{
+                                            if(searchTerm === ''){
+                                                return employee
+                                            }
+                                            else if(employee.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                                                return employee
+                                            }
+                                        }).map((employee) => (
                                             <tr key={employee._id} className="bg-slate-100 border-b">
                                                 <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-900 break-words">
                                                     {employee?.name}
