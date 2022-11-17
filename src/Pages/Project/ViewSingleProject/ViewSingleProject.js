@@ -1,35 +1,60 @@
-import React from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
+import axiosInstance from "../../../services/axiosInstance";
 
 const ViewSingleProject = () => {
+
+    const [project, setProjects] = useState([])
+
+    // const navigate = useNavigate();
+
+    const {id} = useParams();
+
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted) {
+          axiosInstance
+            .get(`/api/project/${id}`)
+            .then((res) => {
+              if (isMounted) {
+                setProjects(res.data);
+                console.log(res.data)
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              toast.error('Something went wrong while Loading')
+            });
+        }
+        return () => {
+          isMounted = false;
+        };
+    }, []);
+
     return (
         <div div className="bg-white rounded-md m-4 p-8">
             <div className="text-2xl font-semibold">Project Details:</div>
             <p className="text-gray-500 text-sm py-3">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Excepturi eveniet eum architecto omnis commodi molestias libero,
-                veritatis natus ea saepe quos, ipsum dolore repellat? Quod iste
-                perspiciatis autem corrupti atque! Doloribus consequuntur vitae
-                nulla, nihil qui exercitationem laborum est quia! Eaque voluptas
-                quod commodi quaerat eum ipsam et nihil quae, expedita,
-                excepturi nemo deleniti tempora facere vitae voluptatum aliquid
-                maxime.
+                {project.description}
             </p>
             <div className="my-6 bg-gray-50 rounded-lg p-4 border">
                 <div className="flex items-center text-md py-3 text-gray-600">
                     <span className="font-semibold min-w-[180px] ">
                         Handled by:
                     </span>{" "}
-                    <span>Hasan Quraishi</span>
+                    <span>{project.name}</span>
                 </div>
                 <hr></hr>
                 <div className="flex items-center text-md py-3 text-gray-600">
                     <span className="font-semibold min-w-[180px] ">Title:</span>{" "}
-                    EMS System
+                    {project.title}
                 </div>
                 <hr></hr>
                 <div className="flex items-center text-md py-3 text-gray-600">
                     <span className="font-semibold min-w-[180px] ">Type:</span>{" "}
-                    Web Application
+                    {project.type}
                 </div>
                 <hr></hr>
                 <div className="flex items-center text-md py-3 text-gray-600">
@@ -37,7 +62,7 @@ const ViewSingleProject = () => {
                         Status:
                     </span>{" "}
                     <span className="bg-blue-500 text-white text-sm py-1 px-2 rounded-md">
-                        In progress
+                        {project.status}
                     </span>
                 </div>
                 <hr></hr>
@@ -45,14 +70,14 @@ const ViewSingleProject = () => {
                     <span className="font-semibold min-w-[180px] ">
                         Starting Date:
                     </span>{" "}
-                    3/11/22
+                    {moment(project.startDate).format('LL')}
                 </div>
                 <hr></hr>
                 <div className="flex items-center text-md py-3 text-gray-600">
                     <span className="font-semibold min-w-[180px] ">
                         Ending Date:
                     </span>{" "}
-                    24/11/22
+                    {moment(project.endDate).format('LL')}
                 </div>
             </div>
         </div>

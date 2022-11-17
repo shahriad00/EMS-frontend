@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const AllEmployeeTable = ({ allEmployees }) => {
+const AllEmployeeTable = ({ allEmployees, handleDeleteEmployee }) => {
     const navigate = useNavigate();
 
     return (
@@ -55,7 +55,7 @@ const AllEmployeeTable = ({ allEmployees }) => {
                                 <tbody>
                                     {
                                         allEmployees.map((employee) => (
-                                            <tr className="bg-slate-100 border-b">
+                                            <tr key={employee._id} className="bg-slate-100 border-b">
                                                 <td className="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-900 break-words">
                                                     {employee?.name}
                                                 </td>
@@ -100,6 +100,7 @@ const AllEmployeeTable = ({ allEmployees }) => {
                                                         <span
                                                             title="Delete Employee"
                                                             className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
+                                                            onClick={()=> handleDeleteEmployee(employee._id)}
                                                         >
                                                             <DeleteOutlined
                                                                 style={{
@@ -113,7 +114,7 @@ const AllEmployeeTable = ({ allEmployees }) => {
                                                             title="Add Project"
                                                             onClick={() =>
                                                                 navigate(
-                                                                    "/add-project"
+                                                                    `/add-project/${employee.name}/${employee._id}`
                                                                 )
                                                             }
                                                             className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"
@@ -130,7 +131,7 @@ const AllEmployeeTable = ({ allEmployees }) => {
                                                             title="View project details"
                                                             onClick={() =>
                                                                 navigate(
-                                                                    "/all-projects/"
+                                                                    `/all-projects/${employee._id}`
                                                                 )
                                                             }
                                                             className="p-2 shadow bg-white rounded-md hover:shadow-md hover:cursor-pointer"

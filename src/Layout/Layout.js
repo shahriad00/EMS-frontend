@@ -192,20 +192,20 @@ const AppLayout = () => {
                                     element={<ViewEmployee />}
                                 />
                                 <Route
-                                    path="/add-project"
+                                    path="/add-project/:name/:id"
                                     element={<AddProject />}
                                 />
                                 <Route
-                                    path="/all-projects"
+                                    path="/all-projects/:id"
                                     element={<ViewAllProjects />}
                                 />
 
                                 <Route
-                                    path="/view-project"
+                                    path="/view-project/:id"
                                     element={<ViewSingleProject />}
                                 />
                                 <Route
-                                    path="/update-project"
+                                    path="/update-project/:id"
                                     element={<UpdateProject />}
                                 />
                                 <Route

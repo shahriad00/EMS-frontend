@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import AllEmployeeTable from "../../../Components/AllEmployee/Table/AllEmployeeTable";
 import axiosInstance from "../../../services/axiosInstance";
 
@@ -22,12 +23,35 @@ const AllEmployees = () => {
             })
             .catch((err) => {
               console.log(err);
+              toast.error('Something went wrong while Loading')
             });
         }
         return () => {
           isMounted = false;
         };
-      }, []);
+    }, []);
+
+    const handleDeleteEmployee = (id) => {
+        axiosInstance.delete(`/api/delete-employee/${id}`)
+        .then(res=>{
+            toast.success(res.data.message);
+            axiosInstance
+            .get('/api/all-employees')
+            .then((res) => {
+                setAllEmployees(res.data);
+                console.log(res.data)
+                })
+            .catch((err) => {
+              console.log(err);
+              toast.error('Something went wrong while Loading')
+            });
+        })
+        .catch(err=>{
+            console.log(err)
+            toast.error('Something went wrong')
+        })
+    }
+    
 
 
     return (
@@ -80,7 +104,7 @@ const AllEmployees = () => {
                         </button>
                     </div>
                 </div>
-                <AllEmployeeTable allEmployees={allEmployees} />
+                <AllEmployeeTable allEmployees={allEmployees} handleDeleteEmployee={handleDeleteEmployee}/>
                 
             </div>
 
