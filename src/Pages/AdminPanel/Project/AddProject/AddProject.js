@@ -2,8 +2,8 @@ import moment from "moment/moment";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import InputErrorMessage from "../../../Components/InputErrorMessage/InputErrorMessage";
-import axiosInstance from "../../../services/axiosInstance";
+import InputErrorMessage from "../../../../Components/InputErrorMessage/InputErrorMessage";
+import axiosInstance from "../../../../services/axiosInstance";
 
 const AddProject = () => {
     const [title, setTitle] = useState("");

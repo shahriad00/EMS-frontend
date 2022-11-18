@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import AllProjectsTable from "../../../Components/AllProjects/Table/AllProjectsTable";
-import axiosInstance from "../../../services/axiosInstance";
+import AllProjectsTable from "../../../../Components/AllProjects/Table/AllProjectsTable";
+import axiosInstance from "../../../../services/axiosInstance";
 
 const ViewAllProjects = () => {
     const [allProjects, setAllProjects] = useState([]);

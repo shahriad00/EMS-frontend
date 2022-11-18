@@ -85,7 +85,7 @@ const UpdateEmployee = () => {
                 })
                 .then((res) => {
                     console.log(res);
-                    toast.success("Employee Added successfully");
+                    toast.success("Employee Updated successfully");
                     navigate("/all-employees");
                 })
                 .catch((err) => {

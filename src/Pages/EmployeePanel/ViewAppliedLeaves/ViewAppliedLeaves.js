@@ -4,9 +4,9 @@ import axiosInstance from "../../../services/axiosInstance";
 
 const ViewAppliedLeaves = () => {
     const [leaves, setLeaves] = useState();
+    const { _id } = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        const { _id } = JSON.parse(localStorage.getItem("user"));
         let isMounted = true;
         if (isMounted) {
             axiosInstance

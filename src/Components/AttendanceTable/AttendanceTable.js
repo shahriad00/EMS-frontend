@@ -1,7 +1,8 @@
+import moment from 'moment/moment';
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const AttendanceTable = () => {
+const AttendanceTable = ({ attendance }) => {
     const navigate = useNavigate();
 
     return (
@@ -28,16 +29,18 @@ const AttendanceTable = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="bg-slate-100 border-b">
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            12/12/22
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            <span className="text-white bg-green-600 py-1 px-3 rounded-md ">
-                                                Present
-                                            </span>
-                                        </td>
-                                    </tr>
+                                    {attendance.map(({ fullDate}) => (
+                                        <tr className="bg-slate-100 border-b">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                {moment(fullDate).format('LLLL')}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                <span className="text-white bg-green-600 py-1 px-3 rounded-md ">
+                                                    Present
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

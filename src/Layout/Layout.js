@@ -1,36 +1,37 @@
 import {
-    AlignRightOutlined,
-    EyeOutlined,
+    AlignRightOutlined, CopyOutlined, EyeOutlined,
     FileOutlined,
     FileSearchOutlined,
     LogoutOutlined,
     PieChartOutlined,
-    PoweroffOutlined,
-    UserAddOutlined,
+    PoweroffOutlined, UserAddOutlined,
     UserOutlined
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useEffect, useState } from "react";
+import { FiUsers } from "react-icons/fi";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import AddEmployee from "../Pages/AdminPanel/AddEmployee/AddEmployee";
+import AllEmployees from "../Pages/AdminPanel/AllEmployees/AllEmployees";
+import AllUsers from "../Pages/AdminPanel/AllUsers/AllUsers";
+import AddProject from "../Pages/AdminPanel/Project/AddProject/AddProject";
+import UpdateProject from "../Pages/AdminPanel/Project/UpdateProject/UpdateProject";
+import ViewAllProjects from "../Pages/AdminPanel/Project/ViewAllProjects/ViewAllProjects";
+import ViewSingleProject from "../Pages/AdminPanel/Project/ViewSingleProject/ViewSingleProject";
+import UpdateEmployee from "../Pages/AdminPanel/UpdateEmployee/UpdateEmployee";
+import ViewEmployee from "../Pages/AdminPanel/ViewEmployee/ViewEmployee";
 import Login from "../Pages/Auth/Login/Login";
 import Signup from "../Pages/Auth/Signup/Signup";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import AddEmployee from "../Pages/Employee/AddEmployee/AddEmployee";
-import AllEmployees from "../Pages/Employee/AllEmployees/AllEmployees";
-import ViewEmployee from "../Pages/Employee/ViewEmployee/ViewEmployee";
 import ApplyForLeave from "../Pages/EmployeePanel/ApplyForLeave/ApplyForLeave";
+import EmployeeDashboard from "../Pages/EmployeePanel/EmployeeDashboard/EmployeeDashboard";
 import MarkAttendance from "../Pages/EmployeePanel/MarkAttendance/MarkAttendance";
 import ViewAppliedLeaves from "../Pages/EmployeePanel/ViewAppliedLeaves/ViewAppliedLeaves";
 import ViewAttendance from "../Pages/EmployeePanel/ViewAttendance/ViewAttendance";
 import LeaveApplication from "../Pages/LeaveApplication/LeaveApplication";
 import LeaveApplicationDetails from "../Pages/LeaveApplication/LeaveApplicationDetails";
 import Profile from "../Pages/Profile/Profile";
-import AddProject from "../Pages/Project/AddProject/AddProject";
-import ViewAllProjects from "../Pages/Project/ViewAllProjects/ViewAllProjects";
-import ViewSingleProject from "../Pages/Project/ViewSingleProject/ViewSingleProject";
-import UpdateEmployee from "./../Pages/Employee/UpdateEmployee/UpdateEmployee";
-import UpdateProject from "./../Pages/Project/UpdateProject/UpdateProject";
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -48,6 +49,7 @@ const items = [
     getItem("Add Employees", "/add-employees", <UserAddOutlined />),
     getItem("Leave Applications", "/leave-applications", <FileOutlined />),
     getItem("View Attendance", "/view-attendance", <AlignRightOutlined />),
+    getItem("All Users", "/all-users", <FiUsers />),
     getItem("View Profile", "/profile", <UserOutlined />),
     getItem("Logout", "/logout", <LogoutOutlined />),
 ];
@@ -55,7 +57,7 @@ const items = [
 const EmployeeItems = [
     getItem("Dashboard", "/employee/dashboard", <PieChartOutlined />),
     getItem("Apply for Leave", "/apply-leave-application", <FileOutlined />),
-    getItem("All Applied Leaves", "/view-applied-leaves", <FileOutlined />),
+    getItem("All Applied Leaves", "/view-applied-leaves", <CopyOutlined />),
     getItem(
         "View Attendance",
         "/employee/view-attendance",
@@ -216,10 +218,15 @@ const AppLayout = () => {
                                     element={<LeaveApplicationDetails />}
                                 />
                                 <Route path="/profile" element={<Profile />} />
+                                <Route path="/all-users" element={<AllUsers />} />
                             </>
                         )}
                         {isLoggedin && user.role === "employee" && (
                             <>
+                                <Route
+                                    path="/employee/dashboard"
+                                    element={<EmployeeDashboard />}
+                                />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route
                                     path="/apply-leave-application"

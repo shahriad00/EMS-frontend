@@ -37,11 +37,13 @@ const Signup = () => {
                         toast.success(res.data.message);
                         localStorage.setItem('user',JSON.stringify(res.data.user))
                         localStorage.setItem('token',JSON.stringify(res.data.token))
-                        if(role === 'admin' || role === 'employee'){
-                           
-                            navigate('/');
+                        if(role === 'admin'){
+                            navigate('/dashboard');
                             window.location.reload();
-                            
+                        }
+                        else if(role === 'employee'){
+                            navigate('/employee/dashboard');
+                            window.location.reload();
                         }
                     })
                     .catch((err) => {

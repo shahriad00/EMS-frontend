@@ -6,18 +6,21 @@ import {
 import React, { useEffect, useState } from "react";
 import { FaUserFriends } from "react-icons/fa";
 import { toast } from "react-toastify";
-import CalendarComp from "../../Components/Calender/CalenderComp";
-import axiosInstance from "../../services/axiosInstance";
+import CalendarComp from "../../../Components/Calender/CalenderComp";
+import axiosInstance from "../../../services/axiosInstance";
 
 const style = {
     color: "white",
     fontSize: "32px",
 };
 
-const Dashboard = () => {
+const EmployeeDashboard = () => {
     const [allProject, setAllProject] = useState("");
     const [allEmployees, setAllEmployees] = useState("");
     const [allLeaves, setAllLeaves] = useState("");
+    const [allUsers, setAllUsers] = useState("");
+
+    const { _id } = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
         let isMounted = true;
@@ -35,8 +38,14 @@ const Dashboard = () => {
                     toast.error("Something went wrong while Loading");
                 });
             axiosInstance
-                .get(`/api/all-applied-leave-applications`)
-                .then((res) => setAllLeaves(res.data))             
+                .get(`/api/applied-leave-applications/${_id}`)
+                .then((res) => setAllLeaves(res.data))
+                .catch((err) => {
+                    toast.error("Something went wrong while Loading");
+                });
+            axiosInstance
+                .get(`/api/all-users`)
+                .then((res) => setAllUsers(res.data))
                 .catch((err) => {
                     toast.error("Something went wrong while Loading");
                 });
@@ -59,11 +68,15 @@ const Dashboard = () => {
                     <Card
                         bgColor="bg-[#52ac56]"
                         number={allLeaves.length}
-                        text="Leave applications"
+                        text="Applied Leaves"
                     >
                         <FileDoneOutlined style={style} />
                     </Card>
-                    <Card bgColor="bg-[#fc9107]" number="2" text="On Leave">
+                    <Card
+                        bgColor="bg-[#fc9107]"
+                        number={allUsers.length}
+                        text="Total Users"
+                    >
                         <SolutionOutlined style={style} />
                     </Card>
                     <Card
@@ -98,4 +111,4 @@ const Card = ({ bgColor, children, number, text }) => {
     );
 };
 
-export default Dashboard;
+export default EmployeeDashboard;
