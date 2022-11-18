@@ -6,8 +6,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { FaUserFriends } from "react-icons/fa";
 import { toast } from "react-toastify";
-import CalendarComp from "../../Components/Calender/CalenderComp";
-import axiosInstance from "../../services/axiosInstance";
+import CalendarComp from "../../../Components/Calender/CalenderComp";
+import axiosInstance from "../../../services/axiosInstance";
 
 const style = {
     color: "white",

@@ -2,10 +2,10 @@ import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import DEPARTMENT from "../../../Assets/data/department";
-import DESIGNATION from "../../../Assets/data/designation";
-import InputErrorMessage from "../../../Components/InputErrorMessage/InputErrorMessage";
-import axiosInstance from "../../../services/axiosInstance";
+import DEPARTMENT from "../../../../Assets/data/department";
+import DESIGNATION from "../../../../Assets/data/designation";
+import InputErrorMessage from "../../../../Components/InputErrorMessage/InputErrorMessage";
+import axiosInstance from "../../../../services/axiosInstance";
 
 const UpdateEmployee = () => {
     const [depertmentID, setDepertmentID] = useState("");

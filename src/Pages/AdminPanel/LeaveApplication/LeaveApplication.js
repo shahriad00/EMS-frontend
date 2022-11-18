@@ -6,7 +6,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axiosInstance from "../../services/axiosInstance";
+import axiosInstance from "../../../services/axiosInstance";
 
 const LeaveApplication = () => {
     const navigate = useNavigate();

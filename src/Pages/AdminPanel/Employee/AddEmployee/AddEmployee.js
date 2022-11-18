@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "validator";
-import DEPARTMENT from "../../../Assets/data/department";
-import DESIGNATION from "../../../Assets/data/designation";
-import InputErrorMessage from "../../../Components/InputErrorMessage/InputErrorMessage";
-import axiosInstance from "../../../services/axiosInstance";
+import DEPARTMENT from "../../../../Assets/data/department";
+import DESIGNATION from "../../../../Assets/data/designation";
+import InputErrorMessage from "../../../../Components/InputErrorMessage/InputErrorMessage";
+import axiosInstance from "../../../../services/axiosInstance";
 
 const AddEmployee = () => {
     const [depertmentID, setDepertmentID] = useState("");

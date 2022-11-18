@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import axiosInstance from "../../services/axiosInstance";
+import axiosInstance from "../../../services/axiosInstance";
 
 const LeaveApplicationDetails = () => {
 

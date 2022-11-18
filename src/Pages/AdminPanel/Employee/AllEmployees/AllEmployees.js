@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import AllEmployeeTable from "../../../Components/AllEmployee/Table/AllEmployeeTable";
-import axiosInstance from "../../../services/axiosInstance";
+import AllEmployeeTable from "../../../../Components/AllEmployee/Table/AllEmployeeTable";
+import axiosInstance from "../../../../services/axiosInstance";
 
 const AllEmployees = () => {
     const [allEmployees, setAllEmployees] = useState([]);
