@@ -1,9 +1,8 @@
 import moment from 'moment/moment';
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const AttendanceTable = ({ attendance }) => {
-    const navigate = useNavigate();
+
 
     return (
         <>
@@ -29,8 +28,8 @@ const AttendanceTable = ({ attendance }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {attendance.map(({ fullDate}) => (
-                                        <tr className="bg-slate-100 border-b">
+                                    {attendance.map(({ fullDate,_id}) => (
+                                        <tr key={_id} className="bg-slate-100 border-b">
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                 {moment(fullDate).format('LLLL')}
                                             </td>

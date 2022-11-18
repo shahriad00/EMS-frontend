@@ -55,7 +55,7 @@ const AllUsers = () => {
                         className="flex items-center justify-between gap-4 border border-steal-200 text-md font-medium rounded-lg shadow hover:shadow-lg  hover:cursor-pointer py-4 px-6 mb-4"
                     >
                         <div className="flex items-center gap-4">
-                            <span className="flex items-center justify-center border rounded-full h-10 w-10 shadow-md">
+                            <span className="flex items-center justify-center rounded-full h-10 w-10 border shadow-md">
                                 <UserOutlined style={{color:'#1890ff', fontSize:'18px'}} />
                             </span>
                              {i + 1}. {user?.name} - [

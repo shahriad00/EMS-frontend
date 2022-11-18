@@ -13,7 +13,7 @@ const MarkAttendance = () => {
             .post(`/api/mark-attendance`, {
                 employeeID: _id,
                 name,
-                month: new Date().getMonth(),
+                month: new Date().getMonth() + 1,
                 date: new Date().getDate(),
                 year: new Date().getFullYear(),
                 fullDate: new Date(),

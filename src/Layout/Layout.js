@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { FiUsers } from "react-icons/fi";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import AllAttendance from "../Pages/AdminPanel/AllAttendance/AllAttendance";
 import AllUsers from "../Pages/AdminPanel/AllUsers/AllUsers";
 import Dashboard from "../Pages/AdminPanel/Dashboard/Dashboard";
 import AddEmployee from "../Pages/AdminPanel/Employee/AddEmployee/AddEmployee";
@@ -48,7 +49,7 @@ const items = [
     getItem("View Employees", "/all-employees", <EyeOutlined />),
     getItem("Add Employees", "/add-employees", <UserAddOutlined />),
     getItem("Leave Applications", "/leave-applications", <FileOutlined />),
-    getItem("View Attendance", "/view-attendance", <AlignRightOutlined />),
+    getItem("View Attendance", "/all-attendance", <AlignRightOutlined />),
     getItem("All Users", "/all-users", <FiUsers />),
     getItem("View Profile", "/profile", <UserOutlined />),
     getItem("Logout", "/logout", <LogoutOutlined />),
@@ -216,6 +217,10 @@ const AppLayout = () => {
                                 <Route
                                     path="/leave-application-details/:id"
                                     element={<LeaveApplicationDetails />}
+                                />
+                                <Route
+                                    path="/all-attendance"
+                                    element={<AllAttendance />}
                                 />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/all-users" element={<AllUsers />} />
