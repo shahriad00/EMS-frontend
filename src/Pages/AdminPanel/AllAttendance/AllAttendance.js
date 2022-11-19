@@ -40,7 +40,7 @@ const AllAttendance = () => {
                 </h1>
                 <div className="flex gap-2 w-1/2 mt-5">
                     <div className="w-full w-1/2">
-                        <div className="mb-5">
+                        <div className="mb-2">
                             <label
                                 htmlFor="year"
                                 className="mb-2 block text-base text-sm text-[#07074D]"
@@ -62,7 +62,7 @@ const AllAttendance = () => {
                         </div>
                     </div>
                     <div className="w-full w-1/2">
-                        <div className="mb-5">
+                        <div className="mb-2">
                             <label
                                 htmlFor="month"
                                 className="mb-2 block text-base text-sm text-[#07074D]"

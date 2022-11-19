@@ -79,6 +79,7 @@ const AppLayout = () => {
     const [user, setUser] = useState({});
     const navigate = useNavigate();
 
+    
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {

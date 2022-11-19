@@ -26,14 +26,13 @@ const Login = () => {
                 })
                 .then((res) => {
                     console.log(res);
-                    toast.success(res.data.message);
                     localStorage.setItem("user", JSON.stringify(res.data.user));
                     localStorage.setItem(
                         "token",
                         JSON.stringify(res.data.token)
                     );
                     if (role === "admin") {
-                        navigate("/");
+                        navigate("/dashboard");
                         window.location.reload();
                     }
                     if (role === "employee") {
