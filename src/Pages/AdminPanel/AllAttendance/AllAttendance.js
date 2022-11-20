@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MONTH } from "../../../Assets/data/month";
 import AllAttendanceTable from "../../../Components/AttendanceTable/AllAttendanceTable";
+import Loading from "../../../Components/Loading/Loading";
 import axiosInstance from "../../../services/axiosInstance";
 import { YEAR } from "./../../../Assets/data/year";
 
@@ -9,18 +10,21 @@ const AllAttendance = () => {
     const [attendance, setAttendance] = useState([]);
     const [year, setYear] = useState();
     const [month, setMonth] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setYear(new Date().getFullYear())
-        setMonth(new Date().getMonth() + 1)
+        setYear(new Date().getFullYear());
+        setMonth(new Date().getMonth() + 1);
+
         let isMounted = true;
+        setIsLoading(true);
         if (isMounted) {
             axiosInstance
                 .get(`/api/all-attendance`)
                 .then((res) => {
                     if (isMounted) {
                         setAttendance(res.data);
-                        console.log(res.data);
+                        setIsLoading(false);
                     }
                 })
                 .catch((err) => {
@@ -30,6 +34,7 @@ const AllAttendance = () => {
         }
         return () => {
             isMounted = false;
+            setIsLoading(false);
         };
     }, []);
     return (
@@ -85,11 +90,15 @@ const AllAttendance = () => {
                     </div>
                 </div>
             </div>
-            <AllAttendanceTable
-                attendance={attendance}
-                year={year}
-                month={month}
-            />
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <AllAttendanceTable
+                    attendance={attendance}
+                    year={year}
+                    month={month}
+                />
+            )}
         </div>
     );
 };

@@ -2,23 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AllEmployeeTable from "../../../../Components/AllEmployee/Table/AllEmployeeTable";
+import Loading from "../../../../Components/Loading/Loading";
 import axiosInstance from "../../../../services/axiosInstance";
 
 const AllEmployees = () => {
     const [allEmployees, setAllEmployees] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         let isMounted = true;
+        setIsLoading(true);
         if (isMounted) {
             axiosInstance
                 .get("/api/all-employees")
                 .then((res) => {
                     if (isMounted) {
                         setAllEmployees(res.data);
-                        console.log(res.data);
+                        setIsLoading(false);
                     }
                 })
                 .catch((err) => {
@@ -28,6 +31,7 @@ const AllEmployees = () => {
         }
         return () => {
             isMounted = false;
+            setIsLoading(false);
         };
     }, []);
 
@@ -107,11 +111,15 @@ const AllEmployees = () => {
                     </button>
                 </div>
             </div>
-            <AllEmployeeTable
-                allEmployees={allEmployees}
-                handleDeleteEmployee={handleDeleteEmployee}
-                searchTerm={searchTerm}
-            />
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <AllEmployeeTable
+                    allEmployees={allEmployees}
+                    handleDeleteEmployee={handleDeleteEmployee}
+                    searchTerm={searchTerm}
+                />
+            )}
         </div>
     );
 };

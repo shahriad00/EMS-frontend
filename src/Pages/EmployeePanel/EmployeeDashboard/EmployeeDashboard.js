@@ -6,7 +6,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { FaUserFriends } from "react-icons/fa";
 import { toast } from "react-toastify";
-import CalendarComp from "../../../Components/Calender/CalenderComp";
 import axiosInstance from "../../../services/axiosInstance";
 
 const style = {
@@ -57,21 +56,25 @@ const EmployeeDashboard = () => {
     return (
         <>
             <div className="px-8 py-12">
-                <div className="flex justify-between">
-                    <Card
-                        bgColor="bg-[#3499ef]"
-                        number={allProject.length}
-                        text="Total Projects"
-                    >
-                        <FundProjectionScreenOutlined style={style} />
-                    </Card>
-                    <Card
-                        bgColor="bg-[#52ac56]"
-                        number={allLeaves.length}
-                        text="Applied Leaves"
-                    >
-                        <FileDoneOutlined style={style} />
-                    </Card>
+                <div>
+                    <div className="flex justify-center gap-5">
+                        <Card
+                            bgColor="bg-[#3499ef]"
+                            number={allProject.length}
+                            text="Total Projects"
+                        >
+                            <FundProjectionScreenOutlined style={style} />
+                        </Card>
+                        <Card
+                            bgColor="bg-[#52ac56]"
+                            number={allLeaves.length}
+                            text="Applied Leaves"
+                        >
+                            <FileDoneOutlined style={style} />
+                        </Card>
+                    </div>
+                </div>
+                <div className="flex justify-center gap-5 mt-10">
                     <Card
                         bgColor="bg-[#fc9107]"
                         number={allUsers.length}
@@ -87,9 +90,6 @@ const EmployeeDashboard = () => {
                         <FaUserFriends style={style} />
                     </Card>
                 </div>
-                <div className="shadow rounded-xl my-5">
-                    <CalendarComp />
-                </div>
             </div>
         </>
     );
@@ -98,7 +98,7 @@ const EmployeeDashboard = () => {
 const Card = ({ bgColor, children, number, text }) => {
     return (
         <>
-            <div className="w-[230px] bg-white rounded-lg relative shadow pl-10 pt-10 pr-5 pb-5">
+            <div className="w-full bg-white rounded-lg relative shadow pl-10 pt-10 pr-5 pb-10">
                 <div
                     className={`absolute ${bgColor} shadow-lg rounded-lg p-4 -top-5 left-5`}
                 >
