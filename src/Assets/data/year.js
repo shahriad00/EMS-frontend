@@ -30,5 +30,5 @@ export const YEAR = [
     {
         id:8,
         year:2025
-    },
+    }
 ]
