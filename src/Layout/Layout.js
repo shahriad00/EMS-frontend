@@ -1,11 +1,14 @@
 import {
-    AlignRightOutlined, CopyOutlined, EyeOutlined,
+    AlignRightOutlined,
+    CopyOutlined,
+    EyeOutlined,
     FileOutlined,
     FileSearchOutlined,
     LogoutOutlined,
     PieChartOutlined,
-    PoweroffOutlined, UserAddOutlined,
-    UserOutlined
+    PoweroffOutlined,
+    UserAddOutlined,
+    UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useEffect, useState } from "react";
@@ -33,6 +36,8 @@ import MarkAttendance from "../Pages/EmployeePanel/MarkAttendance/MarkAttendance
 import ViewAppliedLeaves from "../Pages/EmployeePanel/ViewAppliedLeaves/ViewAppliedLeaves";
 import ViewAttendance from "../Pages/EmployeePanel/ViewAttendance/ViewAttendance";
 import Profile from "../Pages/Profile/Profile";
+import Protected from "./ProtectedRoute";
+import EmployeeProtected from "./EmployeeProtectedRoute";
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -79,7 +84,6 @@ const AppLayout = () => {
     const [user, setUser] = useState({});
     const navigate = useNavigate();
 
-    
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {
@@ -87,6 +91,7 @@ const AppLayout = () => {
             const user = JSON.parse(localStorage.getItem("user"));
             setUser(user);
             token ? setIsLoggedin(true) : setIsLoggedin(false);
+            user?.role === 'admin' ? navigate('/dashboard') : navigate('/employee/dashboard')
         }
         return () => {
             isMounted = false;
@@ -171,90 +176,237 @@ const AppLayout = () => {
 
                         <Route path="/sign-up" element={<Signup />} />
 
-                        {isLoggedin && user.role === "admin" && (
-                            <>
-                                <Route path="/" element={<Dashboard />} />
-                                <Route
-                                    path="/dashboard"
-                                    element={<Dashboard />}
-                                />
-                                <Route
-                                    path="/all-employees"
-                                    element={<AllEmployees />}
-                                />
-                                <Route
-                                    path="/add-employees"
-                                    element={<AddEmployee />}
-                                />
-                                <Route
-                                    path="/update-employee/:id"
-                                    element={<UpdateEmployee />}
-                                />
-                                <Route
-                                    path="/view-employee/:id"
-                                    element={<ViewEmployee />}
-                                />
-                                <Route
-                                    path="/add-project/:name/:id"
-                                    element={<AddProject />}
-                                />
-                                <Route
-                                    path="/all-projects/:id"
-                                    element={<ViewAllProjects />}
-                                />
+                        <Route
+                            path={"/"}
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <Dashboard />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path={"/dashboard"}
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <Dashboard />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path={"/"}
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <AllEmployees />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/add-employees"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <AddEmployee />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/update-employee/:id"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <UpdateEmployee />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/view-employee/:id"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <ViewEmployee />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/add-project/:name/:id"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <AddProject />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/all-projects/:id"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <ViewAllProjects />
+                                </Protected>
+                            }
+                        />
 
-                                <Route
-                                    path="/view-project/:id"
-                                    element={<ViewSingleProject />}
-                                />
-                                <Route
-                                    path="/update-project/:id"
-                                    element={<UpdateProject />}
-                                />
-                                <Route
-                                    path="/leave-applications"
-                                    element={<LeaveApplication />}
-                                />
-                                <Route
-                                    path="/leave-application-details/:id"
-                                    element={<LeaveApplicationDetails />}
-                                />
-                                <Route
-                                    path="/all-attendance"
-                                    element={<AllAttendance />}
-                                />
-                                <Route path="/profile" element={<Profile />} />
-                                <Route path="/all-users" element={<AllUsers />} />
-                            </>
-                        )}
-                        {isLoggedin && user.role === "employee" && (
-                            <>
-                                <Route
-                                    path="/employee/dashboard"
-                                    element={<EmployeeDashboard />}
-                                />
-                                <Route path="/profile" element={<Profile />} />
-                                <Route
-                                    path="/apply-leave-application"
-                                    element={<ApplyForLeave />}
-                                />
-                                <Route
-                                    path="/employee/view-attendance"
-                                    element={<ViewAttendance />}
-                                />
-                                <Route
-                                    path="/employee/mark-attendance"
-                                    element={<MarkAttendance />}
-                                />
-                                <Route
-                                    path="/view-applied-leaves"
-                                    element={<ViewAppliedLeaves />}
-                                />
-                            </>
-                        )}
+                        <Route
+                            path="/view-project/:id"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <ViewSingleProject />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/update-project/:id"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <UpdateProject />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/leave-applications"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <LeaveApplication />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/leave-application-details/:id"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <LeaveApplicationDetails />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/all-attendance"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <AllAttendance />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/profile"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <Profile />
+                                </Protected>
+                            }
+                        />
+                        <Route
+                            path="/all-user?s"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <AllUsers />
+                                </Protected>
+                            }
+                        />
+
+                        <Route
+                            path="/employee/dashboard"
+                            element={
+                                <EmployeeProtected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    {" "}
+                                    <EmployeeDashboard />{" "}
+                                </EmployeeProtected>
+                            }
+                        />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route
+                            path="/apply-leave-application"
+                            element={
+                                <EmployeeProtected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <ApplyForLeave />{" "}
+                                </EmployeeProtected>
+                            }
+                        />
+                        <Route
+                            path="/employee/view-attendance"
+                            element={
+                                <EmployeeProtected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <ViewAttendance />
+                                </EmployeeProtected>
+                            }
+                        />
+                        <Route
+                            path="/employee/mark-attendance"
+                            element={
+                                <EmployeeProtected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <MarkAttendance />
+                                </EmployeeProtected>
+                            }
+                        />
+                        <Route
+                            path="/view-applied-leaves"
+                            element={
+                                <EmployeeProtected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <ViewAppliedLeaves />
+                                </EmployeeProtected>
+                            }
+                        />
                     </Routes>
                 </Content>
-                <Footer className="text-slate-400 text-center">
+                <Footer
+                    className={`${
+                        isLoggedin ? "block" : "hidden"
+                    } text-slate-400 text-center`}
+                >
                     EMS ©{new Date().getFullYear()} Created by Shah Jahidul
                     Islam Riad
                 </Footer>

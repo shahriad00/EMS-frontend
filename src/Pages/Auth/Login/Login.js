@@ -31,14 +31,8 @@ const Login = () => {
                         "token",
                         JSON.stringify(res.data.token)
                     );
-                    if (role === "admin") {
-                        navigate("/dashboard");
-                        window.location.reload();
-                    }
-                    if (role === "employee") {
-                        navigate("/employee/dashboard");
-                        window.location.reload();
-                    }
+                    window.location.reload();
+                    
                 })
                 .catch((err) => {
                     console.log(err);
