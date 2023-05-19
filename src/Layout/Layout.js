@@ -210,6 +210,17 @@ const AppLayout = () => {
                             }
                         />
                         <Route
+                            path="/all-employees"
+                            element={
+                                <Protected
+                                    role={user?.role}
+                                    isSignedIn={isLoggedin}
+                                >
+                                    <AllEmployees />
+                                </Protected>
+                            }
+                        />
+                        <Route
                             path="/add-employees"
                             element={
                                 <Protected
