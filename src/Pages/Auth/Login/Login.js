@@ -4,10 +4,12 @@ import { FiUsers } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axiosInstance";
+import Spinners from "../../../Components/Spinner/Spinners";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [role, setRole] = useState("");
 
     const navigate = useNavigate();
@@ -18,6 +20,7 @@ const Login = () => {
         if (email === "" && password === "" && role === "") {
             toast.error("Please fill-up all the input fields");
         } else {
+            setIsLoading(true);
             axiosInstance
                 .post("/api/user/login", {
                     email,
@@ -25,18 +28,21 @@ const Login = () => {
                     role,
                 })
                 .then((res) => {
-                    console.log(res);
-                    localStorage.setItem("user", JSON.stringify(res.data.user));
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(res?.data?.user)
+                    );
                     localStorage.setItem(
                         "token",
-                        JSON.stringify(res.data.token)
+                        JSON.stringify(res?.data?.token)
                     );
+                    setIsLoading(false);
                     window.location.reload();
-                    
                 })
                 .catch((err) => {
                     console.log(err);
                     toast.error("Something went wrong! please try again");
+                    setIsLoading(false);
                 });
         }
     };
@@ -101,8 +107,8 @@ const Login = () => {
                         </div>
                         <div className="flex gap-5 items-center my-2">
                             <label
-                                HtmlFor="role"
-                                class="block mb-2 text-sm font-medium text-gray-900 min-w-[80px]"
+                                htmlFor="role"
+                                className="block mb-2 text-sm font-medium text-gray-900 min-w-[80px]"
                             >
                                 Login as:
                             </label>
@@ -120,18 +126,22 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <button
-                                type="submit"
-                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <LockClosedIcon
-                                        className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                                        aria-hidden="true"
-                                    />
-                                </span>
-                                Login
-                            </button>
+                            {isLoading ? (
+                                <Spinners />
+                            ) : (
+                                <button
+                                    type="submit"
+                                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                >
+                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                        <LockClosedIcon
+                                            className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                                            aria-hidden="true"
+                                        />
+                                    </span>
+                                    Login
+                                </button>
+                            )}
                         </div>
                     </form>
                 </div>
